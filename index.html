@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech AI | Universe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: radial-gradient(circle at center, #050b1a 0%, #000 100%);
+            --text-color: #00d4ff;
+            --sun-moon-shadow: 0 0 50px #00d4ff;
+        }
+
+        [data-theme="light"] {
+            --bg-color: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+            --text-color: #ffffff;
+            --sun-moon-shadow: 0 0 60px #ffea00;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            height: 100vh; background: var(--bg-color);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; transition: background 1s ease;
+        }
+
+        /* ستێر و عەور */
+        .stars-container { position: absolute; width: 100%; height: 100%; z-index: 0; transition: opacity 1s; }
+        [data-theme="light"] .stars-container { opacity: 0; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--duration) infinite alternate; }
+
+        .clouds-container { position: absolute; width: 100%; height: 100%; display: none; z-index: 1; }
+        [data-theme="light"] .clouds-container { display: block; }
+        .cloud { position: absolute; background: rgba(255, 255, 255, 0.8); filter: blur(20px); border-radius: 50%; animation: moveClouds 25s linear infinite; }
+
+        @keyframes moveClouds { from { transform: translateX(-15vw); } to { transform: translateX(115vw); } }
+
+        /* تاڤ (Sun) */
+        .sun {
+            position: absolute; width: 120px; height: 120px;
+            background: radial-gradient(circle, #fff700, #ffaa00);
+            border-radius: 50%; box-shadow: 0 0 80px #ffea00;
+            top: 10%; left: 10%; display: none; z-index: 2;
+        }
+        [data-theme="light"] .sun { display: block; animation: sunGlow 3s ease-in-out infinite alternate; }
+        @keyframes sunGlow { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+        /* سیستەمێ هەسارەیان */
+        .planet { position: absolute; border-radius: 50%; z-index: 1; transition: transform 1s, opacity 1s; }
+        
+        /* ئەرد (Earth) - د هەردوو مۆدان دا دیارە */
+        .earth { 
+            width: 80px; height: 80px; 
+            background: radial-gradient(circle at 30% 30%, #287ab8, #0b3d91);
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 15px rgba(40, 122, 184, 0.5);
+            bottom: 20%; right: 15%; 
+        }
+        .earth::before { content: ""; position: absolute; width: 100%; height: 100%; background: url('https://www.transparenttextures.com/patterns/clouds.png'); opacity: 0.4; border-radius: 50%; }
+
+        /* هەسارەیێن شەڤێ */
+        [data-theme="light"] .night-only { opacity: 0; transform: translateY(100px); }
+
+        .moon { width: 40px; height: 40px; background: radial-gradient(circle at 30% 30%, #ddd, #666); top: 10%; right: 20%; box-shadow: inset -5px -5px 10px #000; }
+        .uranus { width: 60px; height: 60px; background: #afeeee; top: 25%; right: 5%; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); }
+        .neptune { width: 55px; height: 55px; background: #4169e1; bottom: 10%; left: 20%; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.6); }
+        .jupiter { width: 110px; height: 110px; background: repeating-linear-gradient(#a9703e, #d39c7e 10%, #8b4513 20%); bottom: 15%; left: 5%; box-shadow: inset -15px -15px 30px rgba(0,0,0,0.8); }
+
+        /* دوگمە و تێکست */
+        .theme-switch { position: fixed; top: 20px; right: 20px; z-index: 100; cursor: pointer; font-size: 1.5rem; background: rgba(255,255,255,0.2); padding: 10px 15px; border-radius: 50%; color: white; backdrop-filter: blur(5px); }
+        .welcome-msg { font-size: 3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 50px; color: var(--text-color); text-shadow: var(--sun-moon-shadow); z-index: 10; }
+        
+        .container { position: relative; width: 350px; height: 350px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+        .brand-name { color: #ffffff; font-size: 2.2rem; font-weight: 900; text-shadow: 0 0 25px #00d4ff; padding: 10px 20px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 15px; }
+
+        .orbit { position: absolute; width: 100%; height: 100%; border: 1px dashed rgba(255, 255, 255, 0.3); border-radius: 50%; animation: rotateOrbit 20s linear infinite; }
+        .icon-link { position: absolute; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 1.8rem; transition: 0.4s; }
+        .icon-link:hover { transform: scale(1.2); background: #fff; }
+
+        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #ff0050; }
+        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
+        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
+
+        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="stars-container" id="stars"></div>
+    <div class="clouds-container" id="clouds"></div>
+    <div class="sun"></div>
+
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </div>
+
+    <div class="planet moon night-only"></div>
+    <div class="planet jupiter night-only"></div>
+    <div class="planet uranus night-only"></div>
+    <div class="planet neptune night-only"></div>
+    
+    <div class="planet earth"></div>
+
+    <div class="welcome-msg" id="welcome-text">welcome</div>
+
+    <div class="container">
+        <div class="brand-name">Tech Ai</div>
+        <div class="orbit">
+            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
+        </div>
+    </div>
+
+    <script>
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 'px';
+            star.style.width = size; star.style.height = size;
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            starsContainer.appendChild(star);
+        }
+
+        const cloudsContainer = document.getElementById('clouds');
+        for (let i = 0; i < 8; i++) {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.style.width = Math.random() * 200 + 150 + 'px';
+            cloud.style.height = Math.random() * 80 + 40 + 'px';
+            cloud.style.top = Math.random() * 70 + 'vh';
+            cloud.style.left = Math.random() * 100 + 'vw';
+            cloud.style.animationDelay = Math.random() * 15 + 's';
+            cloudsContainer.appendChild(cloud);
+        }
+
+        const welcomeText = document.getElementById('welcome-text');
+        const messages = ["welcome", "بخێر بێی"];
+        let index = 0;
+        setInterval(() => {
+            index = (index + 1) % messages.length;
+            welcomeText.innerText = messages[index];
+        }, 1200);
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-moon';
+            }
+        }
+    </script>
+</body>
+</html>
