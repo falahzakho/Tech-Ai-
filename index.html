@@ -3,246 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Space & Sky</title>
+    <title>Tech AI | Pro Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
-            --bg-color: radial-gradient(circle at center, #050b1a 0%, #000 100%);
-            --text-color: #00d4ff;
-            --sun-moon-shadow: 0 0 50px #00d4ff;
-        }
-
-        [data-theme="light"] {
-            --bg-color: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
-            --text-color: #ffffff;
-            --sun-moon-shadow: 0 0 60px #ffea00;
+            --neon-color: #00d4ff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: var(--bg-color);
+            margin: 0; padding: 0;
+            background: #000;
+            color: white;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            transition: background 1s ease;
-        }
-
-        /* --- Theme Switcher Animation --- */
-        .theme-switch {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            cursor: pointer;
-            font-size: 1.8rem;
-            background: rgba(255,255,255,0.2);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(5px);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            perspective: 1000px;
         }
 
-        [data-theme="light"] .theme-switch {
-            transform: rotate(360deg);
-            background: rgba(0, 0, 0, 0.1);
-            color: #ffea00;
+        /* 7. Digital Rain Canvas */
+        #matrixCanvas {
+            position: fixed; top: 0; left: 0; z-index: -1;
+            opacity: 0.2;
         }
 
-        /* --- Planets Styling (Only Dark Mode) --- */
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.8);
-            z-index: 1;
-            transition: opacity 1s, transform 1s;
+        /* 24. Dynamic Clock */
+        #clock {
+            position: fixed; top: 20px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem; font-weight: bold;
+            color: var(--neon-color);
+            text-shadow: 0 0 10px var(--neon-color);
+            z-index: 100;
         }
 
-        [data-theme="light"] .planet { opacity: 0; pointer-events: none; }
-
-        .saturn { width: 100px; height: 100px; background: radial-gradient(circle at 30% 30%, #f4d03f, #9a7d0a); top: 15%; left: 10%; }
-        .saturn::after { content: ""; position: absolute; top: 50%; left: 50%; width: 160%; height: 30%; border: 6px solid rgba(244, 208, 63, 0.4); border-radius: 50%; transform: translate(-50%, -50%) rotate(25deg); }
-
-        .jupiter { width: 130px; height: 130px; background: repeating-linear-gradient( #a9703e, #d39c7e 10%, #8b4513 20% ); bottom: 15%; left: 5%; }
-        
-        .uranus { width: 80px; height: 80px; background: radial-gradient(circle at 30% 30%, #aed6f1, #2e86c1); top: 20%; right: 15%; }
-        .neptune { width: 70px; height: 70px; background: radial-gradient(circle at 30% 30%, #5dade2, #1b4f72); bottom: 20%; right: 10%; }
-
-        /* --- Sun Styling (Only Light Mode) --- */
-        .sun {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, #fff700, #ffaa00);
-            border-radius: 50%;
-            box-shadow: 0 0 80px #ffea00;
-            top: 10%; left: 10%;
-            display: none;
-            z-index: 2;
+        /* 3. Glassmorphism & 5. Neon Pulse */
+        .brand-name {
+            font-size: 2.5rem; font-weight: 900;
+            padding: 20px 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--neon-color);
+            border-radius: 20px;
+            box-shadow: 0 0 20px var(--neon-color);
+            animation: neonPulse 2s infinite alternate;
+            cursor: pointer;
+            z-index: 10;
         }
-        [data-theme="light"] .sun { display: block; animation: sunGlow 3s ease-in-out infinite alternate; }
 
-        @keyframes sunGlow { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
+        @keyframes neonPulse {
+            from { box-shadow: 0 0 10px var(--neon-color); }
+            to { box-shadow: 0 0 30px var(--neon-color), inset 0 0 10px var(--neon-color); }
+        }
 
-        /* --- Other Styles --- */
-        .bottom-left-msg {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
+        /* 17. Shake Effect */
+        .shake { animation: shakeAnim 0.3s ease-in-out; }
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* 6. 3D Tilt Container */
+        .main-container {
+            position: relative;
+            transition: transform 0.1s;
+            transform-style: preserve-3d;
+        }
+
+        /* 8. Hologram Icons */
+        .icon-link {
+            position: absolute; width: 60px; height: 60px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 50%; display: flex;
+            justify-content: center; align-items: center;
+            color: white; font-size: 1.8rem;
+            border: 1px solid var(--neon-color);
+            box-shadow: 0 0 15px var(--neon-color);
             text-decoration: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
 
-        .bottom-left-msg:hover { background: rgba(0, 212, 255, 0.3); transform: scale(1.05); }
+        .icon-link:hover {
+            background: var(--neon-color);
+            box-shadow: 0 0 40px var(--neon-color);
+            filter: brightness(1.5);
+        }
 
-        .stars-container { position: absolute; width: 100%; height: 100%; z-index: 0; transition: opacity 1s; }
-        [data-theme="light"] .stars-container { opacity: 0; }
-        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite alternate; }
+        /* 33. Satellite */
+        .satellite {
+            position: fixed; width: 40px; top: 10%;
+            animation: satelliteMove 15s linear infinite;
+            opacity: 0.6; z-index: 1;
+        }
+        @keyframes satelliteMove {
+            from { left: -50px; transform: rotate(0deg); }
+            to { left: 110vw; transform: rotate(360deg); }
+        }
 
-        .clouds-container { position: absolute; width: 100%; height: 100%; display: none; z-index: 1; }
-        [data-theme="light"] .clouds-container { display: block; }
-        .cloud { position: absolute; background: rgba(255, 255, 255, 0.8); filter: blur(20px); border-radius: 50%; animation: moveClouds 20s linear infinite; }
+        /* 41. Music Toggle */
+        .music-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--glass-bg); border: 1px solid var(--neon-color);
+            color: white; padding: 10px; border-radius: 50%;
+            cursor: pointer; z-index: 100;
+        }
 
-        @keyframes moveClouds { from { transform: translateX(-10vw); } to { transform: translateX(110vw); } }
+        /* Orbit Positioning */
+        .orbit {
+            position: absolute; width: 350px; height: 350px;
+            border: 1px dashed rgba(0, 212, 255, 0.3);
+            border-radius: 50%; animation: rotate 15s linear infinite;
+        }
+        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); }
+        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); }
+        .telegram { left: -30px; top: 50%; transform: translateY(-50%); }
 
-        .welcome-msg { font-size: 3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 50px; color: var(--text-color); text-shadow: var(--sun-moon-shadow); z-index: 10; }
-
-        .container { position: relative; width: 350px; height: 350px; display: flex; justify-content: center; align-items: center; z-index: 10; }
-        .brand-name { color: #ffffff; font-size: 2.2rem; font-weight: 900; text-shadow: 0 0 25px #00d4ff; padding: 10px 20px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 15px; }
-
-        .orbit { position: absolute; width: 100%; height: 100%; border: 1px dashed rgba(255, 255, 255, 0.3); border-radius: 50%; animation: rotateOrbit 15s linear infinite; }
-        .icon-link { position: absolute; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 1.8rem; transition: 0.4s; }
-        .icon-link:hover { transform: scale(1.2); background: #fff; }
-
-        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #ff0050; }
-        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
-        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
-
-        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <div class="stars-container" id="stars"></div>
-    <div class="clouds-container" id="clouds"></div>
-    <div class="sun"></div>
+    <canvas id="matrixCanvas"></canvas>
+    <div id="clock">00:00:00</div>
+    <i class="fas fa-satellite satellite"></i>
 
-    <div class="theme-switch" id="themeBtn" onclick="toggleTheme()">
-        <i id="theme-icon" class="fas fa-moon"></i>
-    </div>
-
-    <a href="https://t.me/falahzakho" target="_blank" class="bottom-left-msg bubble-sound">
-        <i class="fas fa-envelope"></i>
-        <span>Message</span>
-    </a>
-
-    <!-- Planets (Hidden in Light Mode) -->
-    <div class="planet saturn"></div>
-    <div class="planet jupiter"></div>
-    <div class="planet uranus"></div>
-    <div class="planet neptune"></div>
-
-    <div class="welcome-msg" id="welcome-text">welcome</div>
-
-    <div class="container">
-        <div class="brand-name">Tech Ai</div>
+    <div class="main-container" id="tiltBody">
+        <div class="brand-name" id="brand" onclick="makeShake()">Tech AI</div>
         <div class="orbit">
-            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok bubble-sound"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram bubble-sound"><i class="fab fa-instagram"></i></a>
-            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram bubble-sound"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
         </div>
     </div>
 
+    <button class="music-btn" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-volume-mute"></i>
+    </button>
+
     <script>
-        // 1. Audio Effect Function
-        function playBubbleSound() {
-            const context = new (window.AudioContext || window.webkitAudioContext)();
-            const o = context.createOscillator();
-            const g = context.createGain();
-            o.type = "sine";
-            o.connect(g);
-            g.connect(context.destination);
-            o.frequency.setValueAtTime(600, context.currentTime);
-            o.frequency.exponentialRampToValueAtTime(1000, context.currentTime + 0.1);
-            g.gain.setValueAtTime(0.2, context.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.1);
-            o.start();
-            o.stop(context.currentTime + 0.1);
+        // 24. Clock Logic
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+
+        // 17. Shake Logic
+        function makeShake() {
+            const b = document.getElementById('brand');
+            b.classList.add('shake');
+            setTimeout(() => b.classList.remove('shake'), 300);
         }
 
-        // Add sound to elements
-        document.querySelectorAll('.bubble-sound').forEach(el => {
-            el.addEventListener('click', playBubbleSound);
+        // 6. 3D Tilt Logic
+        const tilt = document.getElementById('tiltBody');
+        document.addEventListener('mousemove', (e) => {
+            let x = (window.innerWidth / 2 - e.pageX) / 20;
+            let y = (window.innerHeight / 2 - e.pageY) / 20;
+            tilt.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
         });
 
-        // Stars Generation
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 2 + 'px';
-            star.style.width = size; star.style.height = size;
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
-            starsContainer.appendChild(star);
-        }
+        // 7. Digital Rain (Matrix)
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "TECHAI01";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
 
-        // Clouds Generation
-        const cloudsContainer = document.getElementById('clouds');
-        for (let i = 0; i < 6; i++) {
-            const cloud = document.createElement('div');
-            cloud.className = 'cloud';
-            cloud.style.width = Math.random() * 200 + 150 + 'px';
-            cloud.style.height = Math.random() * 100 + 50 + 'px';
-            cloud.style.top = Math.random() * 60 + 'vh';
-            cloud.style.left = Math.random() * 100 + 'vw';
-            cloud.style.animationDelay = Math.random() * 10 + 's';
-            cloudsContainer.appendChild(cloud);
-        }
-
-        // Welcome Text Toggle
-        const welcomeText = document.getElementById('welcome-text');
-        const messages = ["welcome", "بخێر بێی"];
-        let index = 0;
-        setInterval(() => {
-            index = (index + 1) % messages.length;
-            welcomeText.innerText = messages[index];
-        }, 1000);
-
-        // Theme Toggle Function
-        function toggleTheme() {
-            playBubbleSound();
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-sun';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                icon.className = 'fas fa-moon';
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00d4ff";
+            ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
             }
+        }
+        setInterval(drawMatrix, 50);
+
+        // 41. Fake Music Toggle (Visual Only)
+        function toggleMusic() {
+            const icon = document.getElementById('musicIcon');
+            icon.classList.toggle('fa-volume-up');
+            icon.classList.toggle('fa-volume-mute');
         }
     </script>
 </body>
