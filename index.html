@@ -60,7 +60,7 @@
             color: #ffea00;
         }
 
-        /* --- Planets Styling (Only Dark Mode) --- */
+        /* --- Planets Styling --- */
         .planet {
             position: absolute;
             border-radius: 50%;
@@ -75,11 +75,10 @@
         .saturn::after { content: ""; position: absolute; top: 50%; left: 50%; width: 160%; height: 30%; border: 6px solid rgba(244, 208, 63, 0.4); border-radius: 50%; transform: translate(-50%, -50%) rotate(25deg); }
 
         .jupiter { width: 130px; height: 130px; background: repeating-linear-gradient( #a9703e, #d39c7e 10%, #8b4513 20% ); bottom: 15%; left: 5%; }
-        
         .uranus { width: 80px; height: 80px; background: radial-gradient(circle at 30% 30%, #aed6f1, #2e86c1); top: 20%; right: 15%; }
         .neptune { width: 70px; height: 70px; background: radial-gradient(circle at 30% 30%, #5dade2, #1b4f72); bottom: 20%; right: 10%; }
 
-        /* --- Sun Styling (Only Light Mode) --- */
+        /* --- Sun Styling --- */
         .sun {
             position: absolute;
             width: 120px;
@@ -95,7 +94,48 @@
 
         @keyframes sunGlow { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
 
-        /* --- Other Styles --- */
+        /* --- Satellite Ad Animation --- */
+        .satellite-container {
+            position: fixed;
+            top: 50%;
+            left: -200px;
+            display: flex;
+            align-items: center;
+            z-index: 2000;
+            text-decoration: none;
+            animation: satelliteTravel 10s linear infinite;
+        }
+
+        .satellite-icon {
+            font-size: 3rem;
+            color: #00d4ff;
+            filter: drop-shadow(0 0 10px #00d4ff);
+            transform: rotate(-45deg);
+        }
+
+        .ad-banner {
+            background: rgba(0, 212, 255, 0.2);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 10px;
+            border: 2px solid #00d4ff;
+            margin-left: 15px;
+            font-weight: 900;
+            white-space: nowrap;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            font-size: 1.2rem;
+        }
+
+        @keyframes satelliteTravel {
+            0% { left: -300px; }
+            20% { left: 50%; transform: translateX(-50%); } /* Stop in middle */
+            40% { left: 50%; transform: translateX(-50%); } /* Stay for 2s */
+            60% { left: 110vw; transform: translateX(0); } /* Move to right */
+            100% { left: 110vw; }
+        }
+
+        /* --- Messaging Button --- */
         .bottom-left-msg {
             position: fixed;
             bottom: 20px;
@@ -115,16 +155,6 @@
 
         .bottom-left-msg:hover { background: rgba(0, 212, 255, 0.3); transform: scale(1.05); }
 
-        .stars-container { position: absolute; width: 100%; height: 100%; z-index: 0; transition: opacity 1s; }
-        [data-theme="light"] .stars-container { opacity: 0; }
-        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite alternate; }
-
-        .clouds-container { position: absolute; width: 100%; height: 100%; display: none; z-index: 1; }
-        [data-theme="light"] .clouds-container { display: block; }
-        .cloud { position: absolute; background: rgba(255, 255, 255, 0.8); filter: blur(20px); border-radius: 50%; animation: moveClouds 20s linear infinite; }
-
-        @keyframes moveClouds { from { transform: translateX(-10vw); } to { transform: translateX(110vw); } }
-
         .welcome-msg { font-size: 3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 50px; color: var(--text-color); text-shadow: var(--sun-moon-shadow); z-index: 10; }
 
         .container { position: relative; width: 350px; height: 350px; display: flex; justify-content: center; align-items: center; z-index: 10; }
@@ -139,58 +169,9 @@
         .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
 
         @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
-
-        /* --- SATELLITE AD STYLING --- */
-        .satellite-ad {
-            position: fixed;
-            bottom: 50px;
-            left: -200px; /* Start outside left */
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            text-decoration: none;
-            animation: satelliteFly 8s linear infinite;
-        }
-
-        .satellite-icon {
-            font-size: 2.5rem;
-            color: #00d4ff;
-            filter: drop-shadow(0 0 10px #00d4ff);
-            transform: rotate(-45deg);
-        }
-
-        .ad-banner {
-            background: linear-gradient(90deg, #00d4ff, #0088cc);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            margin-left: 10px;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .ad-banner::before {
-            content: "";
-            position: absolute;
-            left: -10px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-right: 10px solid #00d4ff;
-        }
-
-        @keyframes satelliteFly {
-            0% { left: -200px; }
-            30% { left: 50%; transform: translateX(-50%); } /* Stop at center */
-            55% { left: 50%; transform: translateX(-50%); } /* Stay for 2 seconds */
-            100% { left: 110vw; } /* Go to right */
-        }
-
+        .stars-container { position: absolute; width: 100%; height: 100%; z-index: 0; transition: opacity 1s; }
+        [data-theme="light"] .stars-container { opacity: 0; }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) infinite alternate; }
     </style>
 </head>
 <body data-theme="dark">
@@ -198,6 +179,12 @@
     <div class="stars-container" id="stars"></div>
     <div class="clouds-container" id="clouds"></div>
     <div class="sun"></div>
+
+    <!-- SATELLITE AD -->
+    <a href="https://t.me/tech_ai_falah/1350" target="_blank" class="satellite-container" id="satelliteAd">
+        <i class="fas fa-satellite satellite-icon"></i>
+        <div class="ad-banner">کورس Ai</div>
+    </a>
 
     <div class="theme-switch" id="themeBtn" onclick="toggleTheme()">
         <i id="theme-icon" class="fas fa-moon"></i>
@@ -208,13 +195,6 @@
         <span>Message</span>
     </a>
 
-    <!-- SATELLITE AD -->
-    <a href="https://t.me/tech_ai_falah/1350" target="_blank" class="satellite-ad" id="satelliteAd">
-        <i class="fas fa-satellite satellite-icon"></i>
-        <div class="ad-banner">کورس Ai</div>
-    </a>
-
-    <!-- Planets (Hidden in Light Mode) -->
     <div class="planet saturn"></div>
     <div class="planet jupiter"></div>
     <div class="planet uranus"></div>
@@ -232,7 +212,34 @@
     </div>
 
     <script>
-        // 1. Audio Effect Function
+        // Audio Context for Space Sound
+        function playSatelliteSound() {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(100, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 2);
+            
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.5);
+            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 4);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 4);
+        }
+
+        // Trigger sound on each animation loop
+        const satellite = document.getElementById('satelliteAd');
+        satellite.addEventListener('animationiteration', () => {
+            playSatelliteSound();
+        });
+
+        // Bubble Sound for clicks
         function playBubbleSound() {
             const context = new (window.AudioContext || window.webkitAudioContext)();
             const o = context.createOscillator();
@@ -248,32 +255,6 @@
             o.stop(context.currentTime + 0.1);
         }
 
-        // 2. Satellite Sound (Space Hum Effect)
-        function playSatelliteSound() {
-            const context = new (window.AudioContext || window.webkitAudioContext)();
-            const o = context.createOscillator();
-            const g = context.createGain();
-            o.type = "sawtooth";
-            o.frequency.setValueAtTime(150, context.currentTime);
-            o.frequency.linearRampToValueAtTime(200, context.currentTime + 2);
-            g.gain.setValueAtTime(0, context.currentTime);
-            g.gain.linearRampToValueAtTime(0.1, context.currentTime + 0.5);
-            g.gain.linearRampToValueAtTime(0, context.currentTime + 3);
-            o.connect(g);
-            g.connect(context.destination);
-            o.start();
-            o.stop(context.currentTime + 3);
-        }
-
-        // Trigger satellite sound whenever it restarts
-        const satAd = document.getElementById('satelliteAd');
-        satAd.addEventListener('animationiteration', () => {
-            playSatelliteSound();
-        });
-        // Play once at start
-        setTimeout(playSatelliteSound, 500);
-
-        // Add sound to elements
         document.querySelectorAll('.bubble-sound').forEach(el => {
             el.addEventListener('click', playBubbleSound);
         });
@@ -291,19 +272,6 @@
             starsContainer.appendChild(star);
         }
 
-        // Clouds Generation
-        const cloudsContainer = document.getElementById('clouds');
-        for (let i = 0; i < 6; i++) {
-            const cloud = document.createElement('div');
-            cloud.className = 'cloud';
-            cloud.style.width = Math.random() * 200 + 150 + 'px';
-            cloud.style.height = Math.random() * 100 + 50 + 'px';
-            cloud.style.top = Math.random() * 60 + 'vh';
-            cloud.style.left = Math.random() * 100 + 'vw';
-            cloud.style.animationDelay = Math.random() * 10 + 's';
-            cloudsContainer.appendChild(cloud);
-        }
-
         // Welcome Text Toggle
         const welcomeText = document.getElementById('welcome-text');
         const messages = ["welcome", "بخێر بێی"];
@@ -313,7 +281,6 @@
             welcomeText.innerText = messages[index];
         }, 1000);
 
-        // Theme Toggle Function
         function toggleTheme() {
             playBubbleSound();
             const body = document.body;
