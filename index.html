@@ -8,16 +8,13 @@
     
     <style>
         :root {
-            /* مۆدێ شەڤێ - مالدیڤا تاری */
             --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
-            --overlay: rgba(0, 20, 40, 0.8); /* فیلتەرێ تاری بۆ شەڤێ */
+            --overlay: rgba(0, 20, 40, 0.8);
             --text-color: #00f2ff;
         }
 
         [data-theme="light"] {
-            /* مۆدێ ڕۆژێ - مالدیڤا گەش */
-            --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
-            --overlay: rgba(255, 255, 255, 0.1); /* فیلتەرێ ڕوون بۆ ڕۆژێ */
+            --overlay: rgba(255, 255, 255, 0.1);
             --text-color: #ffffff;
         }
 
@@ -29,7 +26,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* لێرە وێنە و فیلتەر تێکەل دبن */
             background: linear-gradient(var(--overlay), var(--overlay)), var(--bg-image);
             background-size: cover;
             background-position: center;
@@ -38,7 +34,30 @@
             transition: background 1s ease-in-out;
         }
 
-        /* --- Theme Switcher --- */
+        /* دوگمەیا دەنگی ل لایێ چەپێ */
+        .music-toggle {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 100;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .music-toggle:hover { transform: scale(1.1); background: rgba(255,255,255,0.3); }
+
+        /* دوگمەیا مۆدی ل لایێ ڕاستێ */
         .theme-switch {
             position: fixed;
             top: 25px;
@@ -135,7 +154,6 @@
 
         @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* پێلێن ئاڤێ */
         .wave-bottom {
             position: absolute;
             bottom: 0;
@@ -173,6 +191,10 @@
 
     <div class="wave-bottom"></div>
 
+    <div class="music-toggle" onclick="toggleMusic()">
+        <i id="music-icon" class="fas fa-volume-up"></i>
+    </div>
+
     <div class="theme-switch" onclick="toggleTheme()">
         <i id="theme-icon" class="fas fa-moon"></i>
     </div>
@@ -206,13 +228,24 @@
             welcomeText.innerText = messages[msgIndex];
         }, 2000);
 
+        const sound = document.getElementById('seaSound');
+        const musicIcon = document.getElementById('music-icon');
+
+        // فەنکشنا کۆنترۆلکرنا دەنگی
+        function toggleMusic() {
+            if (sound.paused) {
+                sound.play();
+                musicIcon.className = 'fas fa-volume-up';
+            } else {
+                sound.pause();
+                musicIcon.className = 'fas fa-volume-mute';
+            }
+        }
+
         function toggleTheme() {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
-            const sound = document.getElementById('seaSound');
             
-            sound.play().catch(() => {});
-
             if (body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 icon.className = 'fas fa-sun';
@@ -222,8 +255,11 @@
             }
         }
 
+        // بۆ هندێ ب دەستپێک دەنگ کار بکەت ئەگەر بزاڤەک ل سەر شاشێ هاتە کرن
         document.addEventListener('click', () => {
-            document.getElementById('seaSound').play();
+            if(sound.paused && musicIcon.className === 'fas fa-volume-up') {
+                sound.play();
+            }
         }, { once: true });
     </script>
 </body>
