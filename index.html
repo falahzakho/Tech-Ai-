@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Maldives Mode</title>
+    <title>Tech AI | Maldives Day & Night</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Dark Mode Maldives Background */
+            /* مۆدێ شەڤێ - مالدیڤ */
             --bg-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5832de0?auto=format&fit=crop&w=1920&q=80');
-            --overlay: rgba(0, 15, 30, 0.7);
+            --overlay: rgba(0, 8, 20, 0.6);
             --text-color: #00f2ff;
         }
 
         [data-theme="light"] {
-            /* Light Mode Maldives Background */
+            /* مۆدێ ڕۆژێ - مالدیڤ */
             --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
-            --overlay: rgba(255, 255, 255, 0.1);
+            --overlay: rgba(255, 255, 255, 0.05);
             --text-color: #ffffff;
         }
 
@@ -29,73 +29,57 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: linear-gradient(var(--overlay), var(--overlay)), var(--bg-image);
+            /* تێکەلکرنا وێنەی ل گەل ئۆڤەرلەی دا کو د مۆدێ شەڤێ دا تاری بیت */
+            background: linear-gradient(var(--overlay), var(--overlay)), var(--bg-image);
             background-size: cover;
             background-position: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            transition: all 1s ease;
+            transition: all 1.2s ease-in-out;
         }
 
-        /* --- Sea Waves Animation Effect --- */
-        .wave-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('https://raw.githubusercontent.com/yusif-adeel/waves/main/wave.png');
-            background-size: 1000px 100px;
-            opacity: 0.3;
-            animation: waveFlow 10s linear infinite;
-        }
-
-        @keyframes waveFlow {
-            from { background-position-x: 0; }
-            to { background-position-x: 1000px; }
-        }
-
-        /* --- Theme Switcher --- */
+        /* --- نیشانده‌رێ گوهۆڕینا مۆدی --- */
         .theme-switch {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             z-index: 100;
             cursor: pointer;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(12px);
             color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            font-size: 1.5rem;
-            transition: 0.5s;
+            border: 2px solid rgba(255,255,255,0.2);
+            font-size: 1.6rem;
+            transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="light"] .theme-switch {
             background: rgba(0,0,0,0.1);
-            color: #ffaa00;
-            transform: rotate(180deg);
+            color: #ffcc00;
+            transform: rotate(360deg);
+            border-color: #ffcc00;
         }
 
         .welcome-msg {
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);
             font-weight: 800;
             text-transform: uppercase;
             margin-bottom: 30px;
             color: var(--text-color);
-            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
             z-index: 10;
         }
 
         .container {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 340px;
+            height: 340px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -104,36 +88,37 @@
 
         .brand-name {
             color: #ffffff;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            text-shadow: 0 0 15px rgba(0,0,0,0.8);
-            padding: 15px 25px;
-            background: rgba(0, 0, 0, 0.4);
+            text-shadow: 0 0 20px rgba(0,0,0,0.9);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.35);
             backdrop-filter: blur(15px);
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
 
         .orbit {
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 2px dashed rgba(255, 255, 255, 0.4);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            animation: rotateOrbit 20s linear infinite;
+            animation: rotateOrbit 25s linear infinite;
         }
 
         .icon-link {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background: white;
+            width: 65px;
+            height: 65px;
+            background: #fff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -141,39 +126,61 @@
             text-decoration: none;
             font-size: 1.8rem;
             transition: 0.4s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
-        .icon-link:hover { transform: scale(1.2) rotate(-360deg); }
+        .icon-link:hover { 
+            transform: scale(1.2) rotate(-360deg); 
+            box-shadow: 0 0 30px #00f2ff;
+        }
 
-        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #000; }
-        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
-        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
+        .tiktok { top: -32px; left: 50%; transform: translateX(-50%); color: #000; }
+        .instagram { bottom: -32px; left: 50%; transform: translateX(-50%); color: #E1306C; }
+        .telegram { top: 50%; left: -32px; transform: translateY(-50%); color: #0088cc; }
 
         @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* Message Link */
+        /* --- پێلێن ئاڤێ یێن خوارێ --- */
+        .wave-bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            background: url('https://raw.githubusercontent.com/yusif-adeel/waves/main/wave.png');
+            background-size: 1000px 100px;
+            opacity: 0.4;
+            animation: waves 12s linear infinite;
+        }
+
+        @keyframes waves {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1000px; }
+        }
+
         .bottom-msg {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(255,255,255,0.2);
+            bottom: 25px;
+            left: 25px;
+            background: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
-            padding: 12px 25px;
+            padding: 14px 28px;
             border-radius: 50px;
             color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255,255,255,0.3);
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
             z-index: 100;
+            font-weight: 600;
+            transition: 0.3s;
         }
+        .bottom-msg:hover { background: rgba(0, 242, 255, 0.4); transform: translateY(-5px); }
     </style>
 </head>
 <body data-theme="dark">
 
-    <div class="wave-overlay"></div>
+    <div class="wave-bottom"></div>
 
     <div class="theme-switch" id="themeBtn" onclick="toggleTheme()">
         <i id="theme-icon" class="fas fa-moon"></i>
@@ -213,8 +220,8 @@
             const icon = document.getElementById('theme-icon');
             const sound = document.getElementById('seaSound');
             
-            // Play sound on first interaction
-            sound.play().catch(() => console.log("Click anywhere to enable sound"));
+            // کارپێکرنا دەنگی دگەل کلیکا ئێکێ
+            sound.play().catch(() => {});
 
             if (body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
@@ -225,10 +232,9 @@
             }
         }
 
-        // Auto-play sound after first click on body
-        document.body.addEventListener('click', () => {
-            const sound = document.getElementById('seaSound');
-            sound.play();
+        // دەمێ کلیک ل هەر جهەکێ شاشێ بکەی دەنگ دێ کار کەت
+        document.addEventListener('click', () => {
+            document.getElementById('seaSound').play();
         }, { once: true });
     </script>
 </body>
