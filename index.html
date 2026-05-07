@@ -3,164 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI - Circular Infographic</title>
+    <title>Tech AI | Maldives Mode</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            /* Dark Mode Maldives Background */
+            --bg-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5832de0?auto=format&fit=crop&w=1920&q=80');
+            --overlay: rgba(0, 15, 30, 0.7);
+            --text-color: #00f2ff;
+        }
+
+        [data-theme="light"] {
+            /* Light Mode Maldives Background */
+            --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
+            --overlay: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
         }
 
         body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #2c3e50, #000000);
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
-        }
-
-        .infographic-container {
-            position: relative;
-            width: 500px;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* بازنێ سەنتەری */
-        .center-node {
-            width: 140px;
-            height: 140px;
-            background: white;
-            border-radius: 50%;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(var(--overlay), var(--overlay)), var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            transition: all 1s ease;
+        }
+
+        /* --- Sea Waves Animation Effect --- */
+        .wave-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('https://raw.githubusercontent.com/yusif-adeel/waves/main/wave.png');
+            background-size: 1000px 100px;
+            opacity: 0.3;
+            animation: waveFlow 10s linear infinite;
+        }
+
+        @keyframes waveFlow {
+            from { background-position-x: 0; }
+            to { background-position-x: 1000px; }
+        }
+
+        /* --- Theme Switcher --- */
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            font-size: 1.5rem;
+            transition: 0.5s;
+        }
+
+        [data-theme="light"] .theme-switch {
+            background: rgba(0,0,0,0.1);
+            color: #ffaa00;
+            transform: rotate(180deg);
+        }
+
+        .welcome-msg {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
-            border: 5px solid #00f2ff;
+        }
+
+        .brand-name {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(0,0,0,0.8);
+            padding: 15px 25px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
         }
 
-        .center-node h2 {
-            color: #1a1a1a;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        /* بازنێ مەزن یێ دەرڤە */
-        .main-ring {
+        .orbit {
             position: absolute;
-            width: 380px;
-            height: 380px;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            width: 100%;
+            height: 100%;
+            border: 2px dashed rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            animation: rotateRing 20s linear infinite;
+            animation: rotateOrbit 20s linear infinite;
         }
 
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* ستایلێ هەر لینکەکێ (Step) */
-        .step {
+        .icon-link {
             position: absolute;
-            width: 90px;
-            height: 90px;
-            text-decoration: none;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: 0.4s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .icon-link:hover { transform: scale(1.2) rotate(-360deg); }
+
+        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #000; }
+        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
+        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
+
+        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Message Link */
+        .bottom-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
             color: white;
-            font-weight: bold;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 3px solid white;
-        }
-
-        .step i {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .step:hover {
-            transform: scale(1.2);
-            z-index: 20;
-            box-shadow: 0 0 25px currentColor;
-        }
-
-        /* دیارکرنا جهێ هەر لینکەکێ ب شێوازێ بازنەیی */
-        .fb { background: #1877F2; top: 10%; left: 50%; transform: translate(-50%, -50%); }
-        .ig { background: #E4405F; top: 40%; right: -5%; transform: translateY(-50%); }
-        .tk { background: #000000; bottom: 5%; right: 15%; transform: translate(-50%, -50%); }
-        .tg { background: #229ED9; bottom: 5%; left: 15%; transform: translate(50%, -50%); }
-        .ms { background: #0088cc; top: 40%; left: -5%; transform: translateY(-50%); }
-
-        /* مۆبایل */
-        @media (max-width: 600px) {
-            .infographic-container {
-                width: 350px;
-                height: 350px;
-            }
-            .main-ring {
-                width: 280px;
-                height: 280px;
-            }
-            .step {
-                width: 70px;
-                height: 70px;
-                font-size: 10px;
-            }
-            .step i { font-size: 18px; }
-            .center-node { width: 100px; height: 100px; }
-            .center-node h2 { font-size: 14px; }
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 100;
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
-    <div class="infographic-container">
-        <div class="center-node">
-            <h2>Tech AI</h2>
-            <small>Solutions</small>
-        </div>
+    <div class="wave-overlay"></div>
 
-        <div class="main-ring"></div>
-
-        <a href="https://www.facebook.com/share/185AGVtNad/?mibextid=wwXIfr" class="step fb" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-            <span>01 Step</span>
-        </a>
-
-        <a href="https://www.instagram.com/falahcanadi?igsh=dmwwdWduazEwZHZz&utm_source=qr" class="step ig" target="_blank">
-            <i class="fab fa-instagram"></i>
-            <span>02 Step</span>
-        </a>
-
-        <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-969xsGlKXkQ" class="step tk" target="_blank">
-            <i class="fab fa-tiktok"></i>
-            <span>03 Step</span>
-        </a>
-
-        <a href="https://t.me/tech_ai_falah" class="step tg" target="_blank">
-            <i class="fab fa-telegram"></i>
-            <span>04 Step</span>
-        </a>
-
-        <a href="https://t.me/falahzakho_" class="step ms" target="_blank">
-            <i class="fas fa-envelope"></i>
-            <span>05 Step</span>
-        </a>
+    <div class="theme-switch" id="themeBtn" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i>
     </div>
 
+    <div class="welcome-msg" id="welcome-text">welcome</div>
+
+    <div class="container">
+        <div class="brand-name">Tech Ai</div>
+        <div class="orbit">
+            <a href="https://www.tiktok.com/@_tech_ai_" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/falahcanadi" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
+        </div>
+    </div>
+
+    <a href="https://t.me/falahzakho" target="_blank" class="bottom-msg">
+        <i class="fas fa-envelope"></i>
+        <span>Message</span>
+    </a>
+
+    <audio id="seaSound" loop>
+        <source src="https://www.soundjay.com/nature/ocean-wave-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const welcomeText = document.getElementById('welcome-text');
+        const messages = ["welcome", "بخێر بێی"];
+        let msgIndex = 0;
+        setInterval(() => {
+            msgIndex = (msgIndex + 1) % messages.length;
+            welcomeText.innerText = messages[msgIndex];
+        }, 2000);
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            const sound = document.getElementById('seaSound');
+            
+            // Play sound on first interaction
+            sound.play().catch(() => console.log("Click anywhere to enable sound"));
+
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        // Auto-play sound after first click on body
+        document.body.addEventListener('click', () => {
+            const sound = document.getElementById('seaSound');
+            sound.play();
+        }, { once: true });
+    </script>
 </body>
 </html>
