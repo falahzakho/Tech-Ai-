@@ -34,8 +34,8 @@
             transition: background 1s ease-in-out;
         }
 
-        /* دوگمەیا دەنگی ل لایێ چەپێ */
-        .music-toggle {
+        /* دوگمەیا ماکی/دەنگی ل لایێ چەپێ */
+        .audio-control {
             position: fixed;
             top: 25px;
             left: 25px;
@@ -54,8 +54,6 @@
             font-size: 1.5rem;
             transition: 0.3s;
         }
-
-        .music-toggle:hover { transform: scale(1.1); background: rgba(255,255,255,0.3); }
 
         /* دوگمەیا مۆدی ل لایێ ڕاستێ */
         .theme-switch {
@@ -191,8 +189,8 @@
 
     <div class="wave-bottom"></div>
 
-    <div class="music-toggle" onclick="toggleMusic()">
-        <i id="music-icon" class="fas fa-volume-up"></i>
+    <div class="audio-control" onclick="toggleAudio()">
+        <i id="audio-icon" class="fas fa-microphone"></i>
     </div>
 
     <div class="theme-switch" onclick="toggleTheme()">
@@ -216,7 +214,7 @@
     </a>
 
     <audio id="seaSound" loop>
-        <source src="https://www.soundjay.com/nature/ocean-wave-1.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/active_storage/sfx/1120/1120-preview.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -229,23 +227,24 @@
         }, 2000);
 
         const sound = document.getElementById('seaSound');
-        const musicIcon = document.getElementById('music-icon');
+        const audioIcon = document.getElementById('audio-icon');
 
-        // فەنکشنا کۆنترۆلکرنا دەنگی
-        function toggleMusic() {
+        // فەنکشنا کۆنترۆلکرنا دەنگی ب ئایکۆنێ ماکی
+        function toggleAudio() {
             if (sound.paused) {
                 sound.play();
-                musicIcon.className = 'fas fa-volume-up';
+                audioIcon.className = 'fas fa-microphone';
+                audioIcon.parentElement.style.background = "rgba(0, 212, 255, 0.4)";
             } else {
                 sound.pause();
-                musicIcon.className = 'fas fa-volume-mute';
+                audioIcon.className = 'fas fa-microphone-slash';
+                audioIcon.parentElement.style.background = "rgba(255, 255, 255, 0.2)";
             }
         }
 
         function toggleTheme() {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
-            
             if (body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 icon.className = 'fas fa-sun';
@@ -255,9 +254,9 @@
             }
         }
 
-        // بۆ هندێ ب دەستپێک دەنگ کار بکەت ئەگەر بزاڤەک ل سەر شاشێ هاتە کرن
+        // کارپێکرن ب کلیکا ئێکێ
         document.addEventListener('click', () => {
-            if(sound.paused && musicIcon.className === 'fas fa-volume-up') {
+            if(sound.paused && audioIcon.className === 'fas fa-microphone') {
                 sound.play();
             }
         }, { once: true });
