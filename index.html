@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Video & Sound</title>
+    <title>Tech AI | Video Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
-            --brand-glow: rgba(0, 242, 255, 0.9);
+            --text-color: #00f2ff;
+            --brand-glow: rgba(0, 242, 255, 0.7);
         }
 
         body, html {
@@ -19,12 +20,12 @@
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: #000;
         }
 
-        /* باکگراوندێ ڤیدیۆ */
+        /* ڤیدیۆیا باکگراوند */
         #bg-video {
             position: fixed;
             right: 0;
@@ -35,74 +36,69 @@
             height: auto;
             z-index: -100;
             object-fit: cover;
-            filter: brightness(0.4); /* تاریکتر دا سپینەر دیار بیت */
         }
 
-        /* بوتۆنا دەنگی */
-        .sound-control {
+        /* پەردەکا تاریک ل سەر ڤیدیۆیێ بۆ جوانیێ */
+        .overlay {
             position: fixed;
-            top: 25px;
-            left: 25px;
-            z-index: 100;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 15, 30, 0.5);
+            z-index: -90;
+        }
+
+        .welcome-msg {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 50px;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            font-size: 1.2rem;
-            transition: 0.3s;
+            text-shadow: 0 0 20px var(--brand-glow);
+            z-index: 10;
         }
 
         .spinner-wrapper {
             position: relative;
-            width: 380px;
-            height: 380px;
+            width: 320px;
+            height: 320px;
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 10;
         }
 
         .brand-center {
             z-index: 30;
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 4px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            border: 4px solid var(--brand-glow);
-            box-shadow: 0 0 30px var(--brand-glow);
-            position: absolute;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .brand-center img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .brand-name-overlay {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: white;
-            width: 100%;
-            text-align: center;
-            font-size: 0.9rem;
-            font-weight: bold;
-            padding: 5px 0;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 0 30px var(--brand-glow);
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--brand-glow); }
+            100% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
         }
 
         .fidget-blades {
             position: absolute;
             width: 100%;
             height: 100%;
-            animation: fastSpin 12s linear infinite;
+            animation: fastSpin 10s linear infinite;
         }
 
         @keyframes fastSpin {
@@ -114,27 +110,28 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 3px;
-            height: 155px;
-            background: linear-gradient(to bottom, var(--brand-glow), transparent);
+            width: 2px;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.2);
             transform-origin: top center;
         }
 
         .icon-link {
             position: absolute;
-            bottom: -35px;
-            left: -33px;
-            width: 70px;
-            height: 70px;
+            bottom: -30px;
+            left: -32px;
+            width: 65px;
+            height: 65px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            font-size: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            animation: counterRotate 12s linear infinite;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            animation: counterRotate 10s linear infinite;
+            transition: 0.3s;
         }
 
         @keyframes counterRotate {
@@ -143,34 +140,45 @@
         }
 
         .arm-1 { transform: rotate(0deg); }
-        .arm-2 { transform: rotate(90deg); }
-        .arm-3 { transform: rotate(180deg); }
-        .arm-4 { transform: rotate(270deg); }
+        .arm-2 { transform: rotate(120deg); }
+        .arm-3 { transform: rotate(240deg); }
 
         .tiktok { color: #000; }
         .instagram { color: #E1306C; }
         .telegram { color: #0088cc; }
-        .message { color: #25D366; }
+
+        .bottom-msg {
+            position: fixed;
+            bottom: 25px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 28px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 100;
+            transition: 0.3s;
+        }
+        .bottom-msg:hover { background: rgba(0, 242, 255, 0.4); }
 
     </style>
 </head>
 <body>
 
-    <!-- بوتۆنا دەنگی -->
-    <div class="sound-control" onclick="toggleSound()">
-        <i id="sound-icon" class="fas fa-volume-mute"></i>
-    </div>
-
-    <!-- ڤیدیۆ (بێ دەنگ دەستپێدەکەت دا بڕاوسەر ڕێ بدەت لێبدەت) -->
-    <video playsinline autoplay muted loop id="bg-video">
+    <!-- باکگراوندێ ڤیدیۆ -->
+    <video autoplay muted loop playsinline id="bg-video">
         <source src="لینکێ_ڤیدیۆیا_تە.mp4" type="video/mp4">
     </video>
+    <div class="overlay"></div>
+
+    <div class="welcome-msg" id="welcome-text">welcome</div>
 
     <div class="spinner-wrapper">
-        <div class="brand-center">
-            <img src="https://i.ibb.co/vC2BLwm2/image.jpg" alt="Falah Tech AI">
-            <div class="brand-name-overlay">TECH AI</div>
-        </div>
+        <div class="brand-center">Tech Ai</div>
 
         <div class="fidget-blades">
             <div class="blade-arm arm-1">
@@ -182,33 +190,22 @@
             <div class="blade-arm arm-3">
                 <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
             </div>
-            <div class="blade-arm arm-4">
-                <a href="https://t.me/falahzakho" target="_blank" class="icon-link message"><i class="fas fa-comment-dots"></i></a>
-            </div>
         </div>
     </div>
 
-    <script>
-        function toggleSound() {
-            const video = document.getElementById('bg-video');
-            const icon = document.getElementById('sound-icon');
-            
-            if (video.muted) {
-                video.muted = false;
-                icon.className = 'fas fa-volume-up';
-            } else {
-                video.muted = true;
-                icon.className = 'fas fa-volume-mute';
-            }
-        }
+    <a href="https://t.me/falahzakho" target="_blank" class="bottom-msg">
+        <i class="fas fa-envelope"></i>
+        <span>Message</span>
+    </a>
 
-        // هەولدان بۆ لێدانا ڤیدیۆیێ ب خۆکار (هندەک مۆبایل پێدڤی ب کلیکێ نە)
-        document.addEventListener('click', () => {
-            const video = document.getElementById('bg-video');
-            if (video.paused) {
-                video.play();
-            }
-        }, { once: true });
+    <script>
+        const welcomeText = document.getElementById('welcome-text');
+        const messages = ["welcome", "بخێر بێی"];
+        let msgIndex = 0;
+        setInterval(() => {
+            msgIndex = (msgIndex + 1) % messages.length;
+            welcomeText.innerText = messages[msgIndex];
+        }, 2000);
     </script>
 </body>
 </html>
