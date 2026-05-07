@@ -1,114 +1,146 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI Rotating Menu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Tech AI Social Links</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #1a1a1a; /* رەنگێ پشت بنەما */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            overflow: hidden;
-        }
-
-        /* بازنەیا زۆرۆک */
-        .rotating-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: rotateCircle 10s linear infinite; /* ئەنیمەیشنا زۆرینێ */
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
         }
 
-        /* ئەنیمەیشنا زۆرینا بازنەیێ */
-        @keyframes rotateCircle {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* ستایلێ ئیکۆنان */
-        .icon-link {
+        /* Earth Image in Center */
+        .main-globe {
+            width: 180px;
+            height: 180px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Earth_Western_Hemisphere_transparent_background.png');
+            background-size: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(0, 162, 255, 0.4);
+            z-index: 2;
+            animation: rotateGlobe 20s linear infinite;
+        }
+
+        @keyframes rotateGlobe {
+            from { background-position: 0 0; }
+            to { background-position: 400px 0; }
+        }
+
+        /* Arcs/Lines */
+        .arc {
             position: absolute;
-            width: 70px;
-            height: 70px;
+            width: 320px;
+            height: 320px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Side Items */
+        .social-item {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            right: 0;
+            width: 220px;
+        }
+
+        .social-item:hover {
+            transform: translateX(-10px);
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
             background: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-decoration: none;
-            font-size: 35px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            transition: 0.3s;
+            font-size: 28px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            z-index: 3;
         }
 
-        /* دا کو ئیکۆن ب خۆ نەزۆرن و راست بمینن */
-        .icon-link i {
-            animation: counterRotate 10s linear infinite;
-        }
-
-        @keyframes counterRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(-360deg); }
-        }
-
-        /* دیارکرنا جهێ ئیکۆنان ل سەر بازنەیێ */
-        .insta { 
-            top: -35px; 
-            color: #E1306C;
-        }
-        .tiktok { 
-            bottom: 20px; 
-            left: -35px; 
-            color: #000;
-        }
-        .telegram { 
-            bottom: 20px; 
-            right: -35px; 
-            color: #0088cc;
-        }
-
-        /* ناڤێ لاپەری ل ناڤەڕاستێ */
-        .center-text {
-            position: absolute;
-            color: #00ffcc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .label-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 10px 25px;
+            border-radius: 0 25px 25px 0;
+            margin-right: -30px;
+            padding-right: 40px;
+            width: 120px;
+            text-align: center;
             font-weight: bold;
-            font-size: 24px;
-            text-shadow: 0 0 10px #00ffcc;
-            z-index: 10;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .icon-link:hover {
-            box-shadow: 0 0 30px #fff;
-            transform: scale(1.2);
-        }
+        /* Specific Icon Colors */
+        .fb { color: #1877F2; }
+        .ig { color: #E4405F; }
+        .tk { color: #000000; }
+        .tg { color: #26A5E4; }
+        .msg { color: #0088cc; }
+
+        /* Positioning based on image structure */
+        .item-1 { transform: rotate(-40deg) translate(200px) rotate(40deg); }
+        .item-2 { transform: rotate(-20deg) translate(220px) rotate(20deg); }
+        .item-3 { transform: rotate(0deg) translate(230px) rotate(0deg); }
+        .item-4 { transform: rotate(20deg) translate(220px) rotate(-20deg); }
+        .item-5 { transform: rotate(40deg) translate(200px) rotate(-40deg); }
+
     </style>
 </head>
 <body>
 
-    <div class="center-text">Tech AI</div>
+    <div class="container">
+        <div class="main-globe"></div>
+        <div class="arc"></div>
 
-    <div class="rotating-container">
-        <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" class="icon-link insta" target="_blank">
-            <i class="fab fa-instagram"></i>
+        <a href="https://www.facebook.com/share/185AGVtNad/?mibextid=wwXIfr" class="social-item item-1" target="_blank">
+            <div class="icon-circle fb"><i class="fab fa-facebook-f"></i></div>
+            <div class="label-box">Facebook</div>
         </a>
 
-        <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-9697e0v56Go" class="icon-link tiktok" target="_blank">
-            <i class="fab fa-tiktok"></i>
+        <a href="https://www.instagram.com/falahcanadi?igsh=dmwwdWduazEwZHZz&utm_source=qr" class="social-item item-2" target="_blank">
+            <div class="icon-circle ig"><i class="fab fa-instagram"></i></div>
+            <div class="label-box">Instagram</div>
         </a>
 
-        <a href="https://t.me/tech_ai_falah" class="icon-link telegram" target="_blank">
-            <i class="fab fa-telegram"></i>
+        <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-969xsGlKXkQ" class="social-item item-3" target="_blank">
+            <div class="icon-circle tk"><i class="fab fa-tiktok"></i></div>
+            <div class="label-box">TikTok</div>
+        </a>
+
+        <a href="https://t.me/tech_ai_falah" class="social-item item-4" target="_blank">
+            <div class="icon-circle tg"><i class="fab fa-telegram-plane"></i></div>
+            <div class="label-box">Telegram</div>
+        </a>
+
+        <a href="https://t.me/falahzakho_" class="social-item item-5" target="_blank">
+            <div class="icon-circle msg"><i class="fas fa-envelope"></i></div>
+            <div class="label-box">Message</div>
         </a>
     </div>
 
