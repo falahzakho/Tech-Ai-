@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Maldives Bio Link</title>
+    <title>Tech AI | Fidget Spinner Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -11,13 +11,13 @@
             --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
             --overlay: rgba(0, 20, 40, 0.8);
             --text-color: #00f2ff;
-            --brand-glow: rgba(0, 242, 255, 0.5);
+            --brand-glow: rgba(0, 242, 255, 0.6);
         }
 
         [data-theme="light"] {
             --overlay: rgba(255, 255, 255, 0.1);
             --text-color: #ffffff;
-            --brand-glow: rgba(255, 255, 255, 0.3);
+            --brand-glow: rgba(255, 255, 255, 0.4);
         }
 
         body {
@@ -36,7 +36,6 @@
             transition: background 1s ease-in-out;
         }
 
-        /* دوگمەیا مۆدی */
         .theme-switch {
             position: fixed;
             top: 25px;
@@ -57,74 +56,74 @@
             transition: 0.5s;
         }
 
-        [data-theme="light"] .theme-switch {
-            background: rgba(0,0,0,0.1);
-            color: #ffaa00;
-            transform: rotate(180deg);
-        }
-
         .welcome-msg {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
             color: var(--text-color);
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-shadow: 0 0 20px var(--brand-glow);
             z-index: 10;
         }
 
-        .container {
+        /* --- Fidget Spinner Container --- */
+        .spinner-wrapper {
             position: relative;
-            width: 380px;
-            height: 380px;
+            width: 320px;
+            height: 320px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10;
         }
 
-        /* --- دیزاینێ نوو یێ Tech AI --- */
-        .brand-name {
+        /* Navێ Tech AI - Center of Spinner */
+        .brand-center {
             color: #ffffff;
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            z-index: 20;
-            padding: 20px;
+            z-index: 30;
+            width: 130px;
+            height: 130px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(25px);
+            border: 4px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            width: 170px;
-            height: 170px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: 0 0 25px var(--brand-glow), inset 0 0 15px rgba(255,255,255,0.2);
-            animation: pulseGlow 3s infinite ease-in-out;
-            position: relative;
+            box-shadow: 0 0 30px var(--brand-glow);
+            position: absolute;
         }
 
-        /* لەرین ل دەورێ ناڤی */
-        @keyframes pulseGlow {
-            0% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--brand-glow); }
-            100% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
-        }
-
-        .orbit {
+        /* The Rotating Part (Blades) */
+        .fidget-blades {
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: rotateOrbit 25s linear infinite;
+            animation: fastSpin 8s linear infinite; /* زفرینا سپینەری */
+        }
+
+        @keyframes fastSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .blade-arm {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 140px; /* دووراتیا ئایکۆنان ژ ناڤەندی */
+            background: rgba(255, 255, 255, 0.1);
+            transform-origin: top center;
         }
 
         .icon-link {
             position: absolute;
+            bottom: -30px;
+            left: -32px;
             width: 65px;
             height: 65px;
             background: white;
@@ -134,17 +133,25 @@
             align-items: center;
             text-decoration: none;
             font-size: 1.8rem;
-            transition: 0.4s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            /* دا کو ئایکۆن بخۆ نەزڤریت و بمینیتە ڕاست */
+            animation: counterRotate 8s linear infinite;
         }
 
-        .icon-link:hover { transform: scale(1.2) rotate(-360deg); box-shadow: 0 0 25px var(--text-color); }
+        @keyframes counterRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
 
-        .tiktok { top: -32px; left: 50%; transform: translateX(-50%); color: #000; }
-        .instagram { bottom: -32px; left: 50%; transform: translateX(-50%); color: #E1306C; }
-        .telegram { top: 50%; left: -32px; transform: translateY(-50%); color: #0088cc; }
+        /* Position each blade at 120 degrees */
+        .arm-1 { transform: rotate(0deg); }
+        .arm-2 { transform: rotate(120deg); }
+        .arm-3 { transform: rotate(240deg); }
 
-        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .tiktok { color: #000; }
+        .instagram { color: #E1306C; }
+        .telegram { color: #0088cc; }
 
         .wave-bottom {
             position: absolute;
@@ -174,9 +181,7 @@
             gap: 12px;
             border: 1px solid rgba(255,255,255,0.3);
             z-index: 100;
-            transition: 0.3s;
         }
-        .bottom-msg:hover { background: rgba(0, 242, 255, 0.4); }
     </style>
 </head>
 <body data-theme="dark">
@@ -189,12 +194,19 @@
 
     <div class="welcome-msg" id="welcome-text">welcome</div>
 
-    <div class="container">
-        <div class="brand-name">Tech Ai</div>
-        <div class="orbit">
-            <a href="https://www.tiktok.com/@_tech_ai_" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.instagram.com/falahcanadi" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
+    <div class="spinner-wrapper">
+        <div class="brand-center">Tech Ai</div>
+
+        <div class="fidget-blades">
+            <div class="blade-arm arm-1">
+                <a href="https://www.tiktok.com/@_tech_ai_" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <div class="blade-arm arm-2">
+                <a href="https://www.instagram.com/falahcanadi" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="blade-arm arm-3">
+                <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
+            </div>
         </div>
     </div>
 
