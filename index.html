@@ -1,75 +1,75 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI Social Links</title>
+    <title>Tech AI Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             margin: 0;
-            padding: 0;
+            background: #1a1a1a; /* رەنگێ پشت بنەمایێ تاری */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
+            height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
-        .container {
+        .main-container {
             position: relative;
-            width: 500px;
+            width: 800px;
             height: 500px;
             display: flex;
-            justify-content: center;
             align-items: center;
         }
 
-        /* Earth Image in Center */
-        .main-globe {
-            width: 180px;
-            height: 180px;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Earth_Western_Hemisphere_transparent_background.png');
+        /* بازنێ مەزن یێ جیهانێ */
+        .earth-circle {
+            width: 350px;
+            height: 350px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Earth_Western_Hemisphere_transparent_background.png') no-repeat center;
             background-size: cover;
             border-radius: 50%;
-            box-shadow: 0 0 50px rgba(0, 162, 255, 0.4);
+            border: 15px solid rgba(255, 255, 255, 0.1);
+            position: relative;
             z-index: 2;
-            animation: rotateGlobe 20s linear infinite;
+            box-shadow: 0 0 50px rgba(0, 150, 255, 0.3);
         }
 
-        @keyframes rotateGlobe {
-            from { background-position: 0 0; }
-            to { background-position: 400px 0; }
-        }
-
-        /* Arcs/Lines */
-        .arc {
+        /* هێلا نیڤ بازنە */
+        .arc-line {
             position: absolute;
-            width: 320px;
-            height: 320px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            width: 450px;
+            height: 450px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 50%;
+            left: -50px;
             z-index: 1;
+            clip-path: inset(0 0 0 50%); /* بتنێ رەخێ راستێ نیشان ددەت */
         }
 
-        /* Side Items */
-        .social-item {
+        .menu-items {
             position: absolute;
+            left: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .item {
             display: flex;
             align-items: center;
             text-decoration: none;
             color: white;
-            transition: all 0.3s ease;
-            right: 0;
-            width: 220px;
+            transition: 0.3s;
         }
 
-        .social-item:hover {
-            transform: translateX(-10px);
+        .item:hover {
+            transform: translateX(10px);
         }
 
+        /* بازنێ بچووک یێ ئایکۆنێ */
         .icon-circle {
             width: 60px;
             height: 60px;
@@ -78,71 +78,83 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            font-size: 25px;
             z-index: 3;
+            border: 2px solid #333;
         }
 
-        .label-box {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            padding: 10px 25px;
-            border-radius: 0 25px 25px 0;
-            margin-right: -30px;
-            padding-right: 40px;
-            width: 120px;
-            text-align: center;
+        /* نیشانده‌رێ ره‌ش یێ درێژ */
+        .label {
+            background: #222;
+            padding: 15px 40px;
+            border-radius: 0 30px 30px 0;
+            margin-left: -30px;
+            width: 180px;
             font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 18px;
+            border-left: 2px solid #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Specific Icon Colors */
-        .fb { color: #1877F2; }
-        .ig { color: #E4405F; }
-        .tk { color: #000000; }
-        .tg { color: #26A5E4; }
-        .msg { color: #0088cc; }
+        .number {
+            font-size: 12px;
+            color: #aaa;
+            border: 1px solid #aaa;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-        /* Positioning based on image structure */
-        .item-1 { transform: rotate(-40deg) translate(200px) rotate(40deg); }
-        .item-2 { transform: rotate(-20deg) translate(220px) rotate(20deg); }
-        .item-3 { transform: rotate(0deg) translate(230px) rotate(0deg); }
-        .item-4 { transform: rotate(20deg) translate(220px) rotate(-20deg); }
-        .item-5 { transform: rotate(40deg) translate(200px) rotate(-40deg); }
+        /* رەنگێن ئایکۆنان */
+        .fa-facebook-f { color: #1877F2; }
+        .fa-instagram { color: #E4405F; }
+        .fa-tiktok { color: #000; }
+        .fa-telegram { color: #229ED9; }
+        .fa-envelope { color: #444; }
 
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="main-globe"></div>
-        <div class="arc"></div>
+<div class="main-container">
+    <div class="earth-circle"></div>
+    
+    <div class="arc-line"></div>
 
-        <a href="https://www.facebook.com/share/185AGVtNad/?mibextid=wwXIfr" class="social-item item-1" target="_blank">
-            <div class="icon-circle fb"><i class="fab fa-facebook-f"></i></div>
-            <div class="label-box">Facebook</div>
+    <div class="menu-items">
+        
+        <a href="https://www.facebook.com/share/185AGVtNad/?mibextid=wwXIfr" class="item" target="_blank">
+            <div class="icon-circle"><i class="fab fa-facebook-f"></i></div>
+            <div class="label"><span>Facebook</span> <span class="number">01</span></div>
         </a>
 
-        <a href="https://www.instagram.com/falahcanadi?igsh=dmwwdWduazEwZHZz&utm_source=qr" class="social-item item-2" target="_blank">
-            <div class="icon-circle ig"><i class="fab fa-instagram"></i></div>
-            <div class="label-box">Instagram</div>
+        <a href="https://www.instagram.com/falahcanadi?igsh=dmwwdWduazEwZHZz&utm_source=qr" class="item" target="_blank">
+            <div class="icon-circle"><i class="fab fa-instagram"></i></div>
+            <div class="label"><span>Instagram</span> <span class="number">02</span></div>
         </a>
 
-        <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-969xsGlKXkQ" class="social-item item-3" target="_blank">
-            <div class="icon-circle tk"><i class="fab fa-tiktok"></i></div>
-            <div class="label-box">TikTok</div>
+        <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-969xsGlKXkQ" class="item" target="_blank">
+            <div class="icon-circle"><i class="fab fa-tiktok"></i></div>
+            <div class="label"><span>TikTok</span> <span class="number">03</span></div>
         </a>
 
-        <a href="https://t.me/tech_ai_falah" class="social-item item-4" target="_blank">
-            <div class="icon-circle tg"><i class="fab fa-telegram-plane"></i></div>
-            <div class="label-box">Telegram</div>
+        <a href="https://t.me/tech_ai_falah" class="item" target="_blank">
+            <div class="icon-circle"><i class="fab fa-telegram"></i></div>
+            <div class="label"><span>Telegram</span> <span class="number">04</span></div>
         </a>
 
-        <a href="https://t.me/falahzakho_" class="social-item item-5" target="_blank">
-            <div class="icon-circle msg"><i class="fas fa-envelope"></i></div>
-            <div class="label-box">Message</div>
+        <a href="https://t.me/falahzakho_" class="item" target="_blank">
+            <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+            <div class="label"><span>Message</span> <span class="number">05</span></div>
         </a>
+
     </div>
+</div>
 
 </body>
 </html>
