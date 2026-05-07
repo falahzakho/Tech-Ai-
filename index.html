@@ -11,11 +11,13 @@
             --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
             --overlay: rgba(0, 20, 40, 0.8);
             --text-color: #00f2ff;
+            --brand-glow: rgba(0, 242, 255, 0.5);
         }
 
         [data-theme="light"] {
             --overlay: rgba(255, 255, 255, 0.1);
             --text-color: #ffffff;
+            --brand-glow: rgba(255, 255, 255, 0.3);
         }
 
         body {
@@ -34,30 +36,7 @@
             transition: background 1s ease-in-out;
         }
 
-        /* دوگمەیا دەنگی ل لایێ چەپێ */
-        .music-toggle {
-            position: fixed;
-            top: 25px;
-            left: 25px;
-            z-index: 100;
-            cursor: pointer;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            font-size: 1.5rem;
-            transition: 0.3s;
-        }
-
-        .music-toggle:hover { transform: scale(1.1); background: rgba(255,255,255,0.3); }
-
-        /* دوگمەیا مۆدی ل لایێ ڕاستێ */
+        /* دوگمەیا مۆدی */
         .theme-switch {
             position: fixed;
             top: 25px;
@@ -90,45 +69,58 @@
             text-transform: uppercase;
             margin-bottom: 30px;
             color: var(--text-color);
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
             z-index: 10;
         }
 
         .container {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 380px;
+            height: 380px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10;
         }
 
+        /* --- دیزاینێ نوو یێ Tech AI --- */
         .brand-name {
             color: #ffffff;
             font-size: 2.2rem;
             font-weight: 900;
-            text-shadow: 0 0 15px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 20;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            width: 160px;
-            height: 160px;
+            width: 170px;
+            height: 170px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            box-shadow: 0 0 25px var(--brand-glow), inset 0 0 15px rgba(255,255,255,0.2);
+            animation: pulseGlow 3s infinite ease-in-out;
+            position: relative;
+        }
+
+        /* لەرین ل دەورێ ناڤی */
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--brand-glow); }
+            100% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
         }
 
         .orbit {
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            animation: rotateOrbit 20s linear infinite;
+            animation: rotateOrbit 25s linear infinite;
         }
 
         .icon-link {
@@ -146,7 +138,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .icon-link:hover { transform: scale(1.2); box-shadow: 0 0 20px var(--text-color); }
+        .icon-link:hover { transform: scale(1.2) rotate(-360deg); box-shadow: 0 0 25px var(--text-color); }
 
         .tiktok { top: -32px; left: 50%; transform: translateX(-50%); color: #000; }
         .instagram { bottom: -32px; left: 50%; transform: translateX(-50%); color: #E1306C; }
@@ -162,38 +154,34 @@
             background: url('https://raw.githubusercontent.com/yusif-adeel/waves/main/wave.png');
             background-size: 1000px 100px;
             opacity: 0.3;
-            animation: waveAnim 10s linear infinite;
+            animation: waveAnim 12s linear infinite;
         }
 
-        @keyframes waveAnim {
-            from { background-position-x: 0; }
-            to { background-position-x: 1000px; }
-        }
+        @keyframes waveAnim { from { background-position-x: 0; } to { background-position-x: 1000px; } }
 
         .bottom-msg {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 25px;
+            left: 25px;
             background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
-            padding: 12px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
             z-index: 100;
+            transition: 0.3s;
         }
+        .bottom-msg:hover { background: rgba(0, 242, 255, 0.4); }
     </style>
 </head>
 <body data-theme="dark">
 
     <div class="wave-bottom"></div>
-
-    <div class="music-toggle" onclick="toggleMusic()">
-        <i id="music-icon" class="fas fa-volume-up"></i>
-    </div>
 
     <div class="theme-switch" onclick="toggleTheme()">
         <i id="theme-icon" class="fas fa-moon"></i>
@@ -228,23 +216,13 @@
             welcomeText.innerText = messages[msgIndex];
         }, 2000);
 
-        const sound = document.getElementById('seaSound');
-        const musicIcon = document.getElementById('music-icon');
-
-        function toggleMusic() {
-            if (sound.paused) {
-                sound.play();
-                musicIcon.className = 'fas fa-volume-up';
-            } else {
-                sound.pause();
-                musicIcon.className = 'fas fa-volume-mute';
-            }
-        }
-
         function toggleTheme() {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
+            const sound = document.getElementById('seaSound');
             
+            sound.play().catch(() => {});
+
             if (body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 icon.className = 'fas fa-sun';
@@ -255,9 +233,7 @@
         }
 
         document.addEventListener('click', () => {
-            if(sound.paused && musicIcon.className === 'fas fa-volume-up') {
-                sound.play();
-            }
+            document.getElementById('seaSound').play();
         }, { once: true });
     </script>
 </body>
