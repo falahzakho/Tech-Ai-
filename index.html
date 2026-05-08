@@ -3,50 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Video Edition</title>
+    <title>Tech AI | Fidget Spinner Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
         :root {
+            --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
+            --overlay: rgba(0, 20, 40, 0.8);
             --text-color: #00f2ff;
-            --brand-glow: rgba(0, 242, 255, 0.7);
+            --brand-glow: rgba(0, 242, 255, 0.6);
         }
 
-        body, html {
+        [data-theme="light"] {
+            --overlay: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --brand-glow: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            background: linear-gradient(var(--overlay), var(--overlay)), var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            transition: background 1s ease-in-out;
         }
 
-        /* ڤیدیۆیا باکگراوند */
-        #bg-video {
+        .theme-switch {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -100;
-            object-fit: cover;
-        }
-
-        /* پەردەکا تاریک ل سەر ڤیدیۆیێ بۆ جوانیێ */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 15, 30, 0.5);
-            z-index: -90;
+            top: 25px;
+            right: 25px;
+            z-index: 100;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            font-size: 1.5rem;
+            transition: 0.5s;
         }
 
         .welcome-msg {
@@ -54,11 +61,12 @@
             font-weight: 800;
             text-transform: uppercase;
             margin-bottom: 50px;
-            color: white;
+            color: var(--text-color);
             text-shadow: 0 0 20px var(--brand-glow);
             z-index: 10;
         }
 
+        /* --- Fidget Spinner Container --- */
         .spinner-wrapper {
             position: relative;
             width: 320px;
@@ -69,36 +77,32 @@
             z-index: 10;
         }
 
+        /* Navێ Tech AI - Center of Spinner */
         .brand-center {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 900;
             z-index: 30;
-            width: 150px;
-            height: 150px;
+            width: 130px;
+            height: 130px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
             border: 4px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-size: 1.6rem;
-            font-weight: 900;
-            text-transform: uppercase;
+            text-align: center;
             box-shadow: 0 0 30px var(--brand-glow);
-            animation: pulseGlow 3s infinite ease-in-out;
+            position: absolute;
         }
 
-        @keyframes pulseGlow {
-            0% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--brand-glow); }
-            100% { transform: scale(1); box-shadow: 0 0 20px var(--brand-glow); }
-        }
-
+        /* The Rotating Part (Blades) */
         .fidget-blades {
             position: absolute;
             width: 100%;
             height: 100%;
-            animation: fastSpin 10s linear infinite;
+            animation: fastSpin 8s linear infinite; /* زفرینا سپینەری */
         }
 
         @keyframes fastSpin {
@@ -111,8 +115,8 @@
             top: 50%;
             left: 50%;
             width: 2px;
-            height: 140px;
-            background: rgba(255, 255, 255, 0.2);
+            height: 140px; /* دووراتیا ئایکۆنان ژ ناڤەندی */
+            background: rgba(255, 255, 255, 0.1);
             transform-origin: top center;
         }
 
@@ -130,8 +134,9 @@
             text-decoration: none;
             font-size: 1.8rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            animation: counterRotate 10s linear infinite;
             transition: 0.3s;
+            /* دا کو ئایکۆن بخۆ نەزڤریت و بمینیتە ڕاست */
+            animation: counterRotate 8s linear infinite;
         }
 
         @keyframes counterRotate {
@@ -139,6 +144,7 @@
             to { transform: rotate(-360deg); }
         }
 
+        /* Position each blade at 120 degrees */
         .arm-1 { transform: rotate(0deg); }
         .arm-2 { transform: rotate(120deg); }
         .arm-3 { transform: rotate(240deg); }
@@ -147,9 +153,23 @@
         .instagram { color: #E1306C; }
         .telegram { color: #0088cc; }
 
+        .wave-bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: url('https://raw.githubusercontent.com/yusif-adeel/waves/main/wave.png');
+            background-size: 1000px 100px;
+            opacity: 0.3;
+            animation: waveAnim 12s linear infinite;
+        }
+
+        @keyframes waveAnim { from { background-position-x: 0; } to { background-position-x: 1000px; } }
+
         .bottom-msg {
             position: fixed;
             bottom: 25px;
+            left: 25px;
             background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
             padding: 12px 28px;
@@ -161,19 +181,16 @@
             gap: 12px;
             border: 1px solid rgba(255,255,255,0.3);
             z-index: 100;
-            transition: 0.3s;
         }
-        .bottom-msg:hover { background: rgba(0, 242, 255, 0.4); }
-
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
-    <!-- باکگراوندێ ڤیدیۆ -->
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="لینکێ_ڤیدیۆیا_تە.mp4" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
+    <div class="wave-bottom"></div>
+
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </div>
 
     <div class="welcome-msg" id="welcome-text">welcome</div>
 
@@ -198,6 +215,10 @@
         <span>Message</span>
     </a>
 
+    <audio id="seaSound" loop>
+        <source src="https://www.soundjay.com/nature/ocean-wave-1.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const welcomeText = document.getElementById('welcome-text');
         const messages = ["welcome", "بخێر بێی"];
@@ -206,6 +227,26 @@
             msgIndex = (msgIndex + 1) % messages.length;
             welcomeText.innerText = messages[msgIndex];
         }, 2000);
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            const sound = document.getElementById('seaSound');
+            
+            sound.play().catch(() => {});
+
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        document.addEventListener('click', () => {
+            document.getElementById('seaSound').play();
+        }, { once: true });
     </script>
 </body>
 </html>
