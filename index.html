@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Rest | Spinner Menu</title>
+    <title>Tech Rest | Spinner Menu with Images</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap');
@@ -12,7 +12,7 @@
             --primary: #38bdf8;
             --accent: #fbbf24;
             --bg-dark: #020617;
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         body {
@@ -20,7 +20,7 @@
             background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             color: #fff;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
             min-height: 100vh;
         }
 
@@ -31,42 +31,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
         .center-logo {
             position: absolute;
             z-index: 10;
             text-align: center;
-            background: rgba(2, 6, 23, 0.8);
+            background: rgba(2, 6, 23, 0.9);
             padding: 20px;
             border-radius: 50%;
             border: 2px solid var(--primary);
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
-            width: 140px;
-            height: 140px;
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
+            width: 130px;
+            height: 130px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             animation: pulse 2s infinite;
+            backdrop-filter: blur(10px);
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(56, 189, 248, 0.5); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .center-logo h2 { margin: 0; font-size: 1.2rem; color: var(--primary); font-weight: 900; }
-        .center-logo span { font-size: 0.8rem; color: var(--accent); }
+        .center-logo h2 { margin: 0; font-size: 1.1rem; color: var(--primary); font-weight: 900; }
 
         .spinner-container {
             position: relative;
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
             border: 1px dashed var(--glass-border);
-            animation: rotateSpinner 20s linear infinite;
+            animation: rotateSpinner 25s linear infinite;
         }
 
         @keyframes rotateSpinner {
@@ -76,19 +75,20 @@
 
         .cat-item {
             position: absolute;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
+            border: 2px solid var(--glass-border);
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             cursor: pointer;
+            overflow: hidden; /* بۆ ئەوەی وێنەکە ببێتە بازنە */
             transition: 0.3s;
-            animation: counterRotate 20s linear infinite;
+            animation: counterRotate 25s linear infinite;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         @keyframes counterRotate {
@@ -96,57 +96,67 @@
             to { transform: rotate(-360deg); }
         }
 
+        .cat-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .cat-item span {
+            position: relative;
+            z-index: 2;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding-bottom: 8px;
+            color: #fff;
+            text-shadow: 1px 1px 5px #000;
+        }
+
         .cat-item:hover {
-            background: var(--primary);
-            border-color: #fff;
+            border-color: var(--primary);
             transform: scale(1.1);
         }
 
-        .cat-item i { font-size: 1.5rem; color: var(--accent); margin-bottom: 5px; }
-        .cat-item span { font-size: 0.7rem; font-weight: 700; text-align: center; }
-
         /* --- Food List Section --- */
         #foodSection {
+            position: fixed;
+            inset: 0;
             padding: 20px;
             background: #020617;
-            min-height: 100vh;
+            overflow-y: auto;
             display: none;
+            z-index: 100;
         }
 
         .food-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
 
         .food-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             border: 1px solid var(--glass-border);
             overflow: hidden;
         }
 
-        .food-photo { width: 100%; height: 120px; object-fit: cover; }
-        .food-info { padding: 10px; text-align: center; }
-        .food-info h3 { font-size: 0.85rem; margin: 0; height: 35px; }
-        .price-tag { color: var(--primary); font-weight: 800; font-size: 0.8rem; }
+        .food-photo { width: 100%; height: 110px; object-fit: cover; }
+        .food-info { padding: 8px; text-align: center; }
+        .food-info h3 { font-size: 0.8rem; margin: 0; color: #eee; height: 32px; overflow: hidden; }
+        .price-tag { color: var(--accent); font-weight: 800; font-size: 0.75rem; display: block; margin-top: 5px; }
 
         .back-btn {
             background: var(--primary);
             color: #000;
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             font-weight: 700;
+            font-family: inherit;
         }
-
-        /* Positioning Items around Circle */
-        .item-1 { top: -40px; left: 110px; }
-        .item-2 { top: 60px; right: -40px; }
-        .item-3 { bottom: -40px; left: 110px; }
-        .item-4 { top: 60px; left: -40px; }
-
     </style>
 </head>
 <body>
@@ -154,19 +164,15 @@
 <div id="homePage" class="hero-spinner">
     <div class="center-logo">
         <h2>Tech Rest</h2>
-        <span>ب خێرهاتی</span>
+        <span style="font-size: 0.7rem; color: var(--accent);">فەرموو هەڵبژێرە</span>
     </div>
-
-    <div class="spinner-container" id="catGrid">
-        <!-- ب رێکا JS جۆرێن خارنێ لێرە دکەڤنە د ناڤ بازنەیی دا -->
-    </div>
+    <div class="spinner-container" id="catGrid"></div>
 </div>
 
 <div id="foodSection">
     <button class="back-btn" onclick="showHome()">
-        <i class="fas fa-chevron-right"></i> ڤەگەر بۆ سەرەکی
+        <i class="fas fa-arrow-right"></i> ڤەگەر
     </button>
-    <h2 id="catTitle" style="text-align: center; color: var(--accent);"></h2>
     <div class="food-grid" id="foodGrid"></div>
 </div>
 
@@ -174,24 +180,17 @@
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTSRjwZs-DPmh8Cg7LwOa1HTa8m58e4LriIPHbkoxdNp-vcgkNHHsVnp89Dj_TE7xiDLMugKBJRtsBr/pub?output=csv';
     let dataList = [];
 
-    // ئایکۆنەکان بەپێی ناوی بەشەکان (دەتوانی لێرە بیگۆڕی)
-    const icons = {
-        "برگر": "fa-burger",
-        "پیتزا": "fa-pizza-slice",
-        "سەندویچ": "fa-hotdog",
-        "خوارن": "fa-utensils",
-        "نوشین": "fa-glass-water"
-    };
-
     async function loadData() {
-        const res = await fetch(csvUrl);
-        const txt = await res.text();
-        const rows = txt.split('\n').slice(1);
-        dataList = rows.map(r => {
-            const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, '').trim());
-            return { name: c[0], price: c[1], img: c[2], cat: c[3] };
-        }).filter(i => i.cat);
-        renderSpinner();
+        try {
+            const res = await fetch(csvUrl);
+            const txt = await res.text();
+            const rows = txt.split('\n').slice(1);
+            dataList = rows.map(r => {
+                const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, '').trim());
+                return { name: c[0], price: c[1], img: c[2], cat: c[3], catImg: c[4] };
+            }).filter(i => i.cat);
+            renderSpinner();
+        } catch(e) { console.error("Error:", e); }
     }
 
     function renderSpinner() {
@@ -200,25 +199,26 @@
         grid.innerHTML = '';
 
         categories.forEach((cat, index) => {
-            const iconClass = icons[cat] || "fa-utensils";
+            const itemData = dataList.find(i => i.cat === cat);
+            const catImageUrl = itemData ? itemData.catImg : '';
+            
             const angle = (index / categories.length) * 360;
-            // دانانی ئایتمەکان بە شێوەی بازنەیی
-            const x = 150 + 140 * Math.cos(angle * Math.PI / 180) - 40;
-            const y = 150 + 140 * Math.sin(angle * Math.PI / 180) - 40;
+            const radius = 150; // چەق
+            const x = radius + 145 * Math.cos(angle * Math.PI / 180) - 45;
+            const y = radius + 145 * Math.sin(angle * Math.PI / 180) - 45;
 
             grid.innerHTML += `
-                <div class="cat-item" style="left: ${x}px; top: ${y}px;" onclick="openCat('${cat}')">
-                    <i class="fas ${iconClass}"></i>
+                <div class="cat-item" 
+                     style="left: ${x}px; top: ${y}px; background-image: url('${catImageUrl}');" 
+                     onclick="openCat('${cat}')">
                     <span>${cat}</span>
                 </div>`;
         });
     }
 
     function openCat(catName) {
-        document.getElementById('homePage').style.display = 'none';
+        document.getElementById('homePage').style.opacity = '0.3';
         document.getElementById('foodSection').style.display = 'block';
-        document.getElementById('catTitle').innerText = catName;
-        
         const grid = document.getElementById('foodGrid');
         grid.innerHTML = '';
         dataList.filter(i => i.cat === catName).forEach(item => {
@@ -234,7 +234,7 @@
     }
 
     function showHome() {
-        document.getElementById('homePage').style.display = 'flex';
+        document.getElementById('homePage').style.opacity = '1';
         document.getElementById('foodSection').style.display = 'none';
     }
 
