@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Rest | Spinner Menu with Images</title>
+    <title>Tech Rest | Double Spinner Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap');
@@ -22,18 +22,23 @@
             margin: 0;
             overflow: hidden;
             min-height: 100vh;
-        }
-
-        /* --- Spinner Section --- */
-        .hero-spinner {
-            position: relative;
-            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .center-logo {
+        /* --- Global Spinner Styles --- */
+        .spinner-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s ease-in-out;
+        }
+
+        .center-display {
             position: absolute;
             z-index: 10;
             text-align: center;
@@ -42,30 +47,24 @@
             border-radius: 50%;
             border: 2px solid var(--primary);
             box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            animation: pulse 2s infinite;
             backdrop-filter: blur(10px);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .center-logo h2 { margin: 0; font-size: 1.1rem; color: var(--primary); font-weight: 900; }
+        .center-display h2 { margin: 0; font-size: 1rem; color: var(--primary); font-weight: 900; }
+        .center-display .price { font-size: 1.1rem; color: var(--accent); font-weight: 900; margin-top: 5px; }
 
         .spinner-container {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 340px;
+            height: 340px;
             border-radius: 50%;
             border: 1px dashed var(--glass-border);
-            animation: rotateSpinner 25s linear infinite;
+            animation: rotateSpinner 30s linear infinite;
         }
 
         @keyframes rotateSpinner {
@@ -73,19 +72,19 @@
             to { transform: rotate(360deg); }
         }
 
-        .cat-item {
+        .item-circle {
             position: absolute;
-            width: 90px;
-            height: 90px;
+            width: 95px;
+            height: 95px;
             border-radius: 50%;
             border: 2px solid var(--glass-border);
             display: flex;
             align-items: flex-end;
             justify-content: center;
             cursor: pointer;
-            overflow: hidden; /* بۆ ئەوەی وێنەکە ببێتە بازنە */
+            overflow: hidden;
             transition: 0.3s;
-            animation: counterRotate 25s linear infinite;
+            animation: counterRotate 30s linear infinite;
             background-size: cover;
             background-position: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -96,84 +95,65 @@
             to { transform: rotate(-360deg); }
         }
 
-        .cat-item::after {
+        .item-circle::after {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
 
-        .cat-item span {
+        .item-circle span {
             position: relative;
             z-index: 2;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 900;
             padding-bottom: 8px;
             color: #fff;
-            text-shadow: 1px 1px 5px #000;
+            text-align: center;
         }
 
-        .cat-item:hover {
-            border-color: var(--primary);
-            transform: scale(1.1);
-        }
+        .item-circle:hover { border-color: var(--primary); transform: scale(1.1); }
 
-        /* --- Food List Section --- */
-        #foodSection {
-            position: fixed;
-            inset: 0;
-            padding: 20px;
-            background: #020617;
-            overflow-y: auto;
-            display: none;
-            z-index: 100;
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .food-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-        }
-
-        .food-photo { width: 100%; height: 110px; object-fit: cover; }
-        .food-info { padding: 8px; text-align: center; }
-        .food-info h3 { font-size: 0.8rem; margin: 0; color: #eee; height: 32px; overflow: hidden; }
-        .price-tag { color: var(--accent); font-weight: 800; font-size: 0.75rem; display: block; margin-top: 5px; }
-
+        /* --- Navigation --- */
         .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             background: var(--primary);
             color: #000;
             border: none;
             padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            font-family: inherit;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 0 15px var(--primary);
         }
+
     </style>
 </head>
 <body>
 
-<div id="homePage" class="hero-spinner">
-    <div class="center-logo">
+<button class="back-btn" id="backBtn" onclick="showCategories()">
+    <i class="fas fa-arrow-right"></i>
+</button>
+
+<!-- Main Categories Spinner -->
+<div id="catView" class="spinner-wrapper">
+    <div class="center-display">
         <h2>Tech Rest</h2>
-        <span style="font-size: 0.7rem; color: var(--accent);">فەرموو هەڵبژێرە</span>
+        <span style="font-size: 0.7rem; color: var(--accent);">زاخۆ</span>
     </div>
     <div class="spinner-container" id="catGrid"></div>
 </div>
 
-<div id="foodSection">
-    <button class="back-btn" onclick="showHome()">
-        <i class="fas fa-arrow-right"></i> ڤەگەر
-    </button>
-    <div class="food-grid" id="foodGrid"></div>
+<!-- Food Items Spinner -->
+<div id="foodView" class="spinner-wrapper" style="display: none;">
+    <div class="center-display" id="foodCenter">
+        <h2 id="selectedFoodName">ناڤێ خارنێ</h2>
+        <span class="price" id="selectedFoodPrice">0 IQD</span>
+    </div>
+    <div class="spinner-container" id="foodGrid"></div>
 </div>
 
 <script>
@@ -189,53 +169,71 @@
                 const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, '').trim());
                 return { name: c[0], price: c[1], img: c[2], cat: c[3], catImg: c[4] };
             }).filter(i => i.cat);
-            renderSpinner();
-        } catch(e) { console.error("Error:", e); }
+            renderCategorySpinner();
+        } catch(e) { console.error("Error loading data:", e); }
     }
 
-    function renderSpinner() {
+    function renderCategorySpinner() {
         const grid = document.getElementById('catGrid');
         const categories = [...new Set(dataList.map(i => i.cat))];
         grid.innerHTML = '';
 
         categories.forEach((cat, index) => {
             const itemData = dataList.find(i => i.cat === cat);
-            const catImageUrl = itemData ? itemData.catImg : '';
-            
             const angle = (index / categories.length) * 360;
-            const radius = 150; // چەق
-            const x = radius + 145 * Math.cos(angle * Math.PI / 180) - 45;
-            const y = radius + 145 * Math.sin(angle * Math.PI / 180) - 45;
+            const pos = calculatePosition(angle, 155);
 
             grid.innerHTML += `
-                <div class="cat-item" 
-                     style="left: ${x}px; top: ${y}px; background-image: url('${catImageUrl}');" 
-                     onclick="openCat('${cat}')">
+                <div class="item-circle" 
+                     style="left: ${pos.x}px; top: ${pos.y}px; background-image: url('${itemData.catImg}');" 
+                     onclick="openFoodSpinner('${cat}')">
                     <span>${cat}</span>
                 </div>`;
         });
     }
 
-    function openCat(catName) {
-        document.getElementById('homePage').style.opacity = '0.3';
-        document.getElementById('foodSection').style.display = 'block';
+    function openFoodSpinner(catName) {
+        document.getElementById('catView').style.display = 'none';
+        document.getElementById('foodView').style.display = 'flex';
+        document.getElementById('backBtn').style.display = 'block';
+        
         const grid = document.getElementById('foodGrid');
+        const filteredFoods = dataList.filter(i => i.cat === catName);
         grid.innerHTML = '';
-        dataList.filter(i => i.cat === catName).forEach(item => {
+
+        filteredFoods.forEach((food, index) => {
+            const angle = (index / filteredFoods.length) * 360;
+            const pos = calculatePosition(angle, 155);
+
             grid.innerHTML += `
-                <div class="food-card">
-                    <img src="${item.img}" class="food-photo">
-                    <div class="food-info">
-                        <h3>${item.name}</h3>
-                        <span class="price-tag">${item.price}</span>
-                    </div>
+                <div class="item-circle" 
+                     style="left: ${pos.x}px; top: ${pos.y}px; background-image: url('${food.img}');" 
+                     onmouseover="updateCenter('${food.name}', '${food.price}')"
+                     onclick="updateCenter('${food.name}', '${food.price}')">
+                    <span>${food.name}</span>
                 </div>`;
         });
+        
+        // ناوی یەکەم خواردن نیشان بدە لە ناوەڕاست
+        if(filteredFoods.length > 0) updateCenter(filteredFoods[0].name, filteredFoods[0].price);
     }
 
-    function showHome() {
-        document.getElementById('homePage').style.opacity = '1';
-        document.getElementById('foodSection').style.display = 'none';
+    function updateCenter(name, price) {
+        document.getElementById('selectedFoodName').innerText = name;
+        document.getElementById('selectedFoodPrice').innerText = price;
+    }
+
+    function showCategories() {
+        document.getElementById('catView').style.display = 'flex';
+        document.getElementById('foodView').style.display = 'none';
+        document.getElementById('backBtn').style.display = 'none';
+    }
+
+    function calculatePosition(angle, distance) {
+        const radius = 170; // نێوەندی بازنە گەورەکە
+        const x = radius + distance * Math.cos(angle * Math.PI / 180) - 47;
+        const y = radius + distance * Math.sin(angle * Math.PI / 180) - 47;
+        return { x, y };
     }
 
     loadData();
