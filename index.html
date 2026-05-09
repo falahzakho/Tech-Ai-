@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Rest | Double Spinner Menu</title>
+    <title>Tech Rest | Curved Spinner</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap');
@@ -27,7 +27,6 @@
             justify-content: center;
         }
 
-        /* --- Global Spinner Styles --- */
         .spinner-wrapper {
             position: relative;
             width: 100vw;
@@ -35,7 +34,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.5s ease-in-out;
         }
 
         .center-display {
@@ -47,8 +45,8 @@
             border-radius: 50%;
             border: 2px solid var(--primary);
             box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -56,15 +54,12 @@
         }
 
         .center-display h2 { margin: 0; font-size: 1rem; color: var(--primary); font-weight: 900; }
-        .center-display .price { font-size: 1.1rem; color: var(--accent); font-weight: 900; margin-top: 5px; }
 
         .spinner-container {
             position: relative;
-            width: 340px;
-            height: 340px;
-            border-radius: 50%;
-            border: 1px dashed var(--glass-border);
-            animation: rotateSpinner 30s linear infinite;
+            width: 380px;
+            height: 380px;
+            animation: rotateSpinner 40s linear infinite;
         }
 
         @keyframes rotateSpinner {
@@ -72,22 +67,12 @@
             to { transform: rotate(360deg); }
         }
 
-        .item-circle {
+        .item-node {
             position: absolute;
-            width: 95px;
-            height: 95px;
-            border-radius: 50%;
-            border: 2px solid var(--glass-border);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
+            width: 120px;
+            height: 120px;
             cursor: pointer;
-            overflow: hidden;
-            transition: 0.3s;
-            animation: counterRotate 30s linear infinite;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation: counterRotate 40s linear infinite;
         }
 
         @keyframes counterRotate {
@@ -95,26 +80,21 @@
             to { transform: rotate(-360deg); }
         }
 
-        .item-circle::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        }
-
-        .item-circle span {
-            position: relative;
-            z-index: 2;
-            font-size: 0.7rem;
+        svg { width: 100%; height: 100%; overflow: visible; }
+        
+        .curved-text {
+            fill: #fff;
+            font-size: 10px;
             font-weight: 900;
-            padding-bottom: 8px;
-            color: #fff;
-            text-align: center;
+            text-shadow: 1px 1px 2px #000;
         }
 
-        .item-circle:hover { border-color: var(--primary); transform: scale(1.1); }
+        .price-text {
+            fill: var(--accent);
+            font-size: 9px;
+            font-weight: 900;
+        }
 
-        /* --- Navigation --- */
         .back-btn {
             position: fixed;
             top: 20px;
@@ -122,14 +102,13 @@
             background: var(--primary);
             color: #000;
             border: none;
-            padding: 10px 15px;
+            padding: 12px;
             border-radius: 50%;
             cursor: pointer;
             z-index: 100;
             display: none;
             box-shadow: 0 0 15px var(--primary);
         }
-
     </style>
 </head>
 <body>
@@ -138,20 +117,17 @@
     <i class="fas fa-arrow-right"></i>
 </button>
 
-<!-- Main Categories Spinner -->
 <div id="catView" class="spinner-wrapper">
     <div class="center-display">
         <h2>Tech Rest</h2>
-        <span style="font-size: 0.7rem; color: var(--accent);">زاخۆ</span>
     </div>
     <div class="spinner-container" id="catGrid"></div>
 </div>
 
-<!-- Food Items Spinner -->
 <div id="foodView" class="spinner-wrapper" style="display: none;">
-    <div class="center-display" id="foodCenter">
-        <h2 id="selectedFoodName">ناڤێ خارنێ</h2>
-        <span class="price" id="selectedFoodPrice">0 IQD</span>
+    <div class="center-display">
+        <h2 id="midName">Tech Rest</h2>
+        <span id="midPrice" style="color:var(--accent); font-weight:bold; margin-top:5px;"></span>
     </div>
     <div class="spinner-container" id="foodGrid"></div>
 </div>
@@ -161,79 +137,84 @@
     let dataList = [];
 
     async function loadData() {
-        try {
-            const res = await fetch(csvUrl);
-            const txt = await res.text();
-            const rows = txt.split('\n').slice(1);
-            dataList = rows.map(r => {
-                const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, '').trim());
-                return { name: c[0], price: c[1], img: c[2], cat: c[3], catImg: c[4] };
-            }).filter(i => i.cat);
-            renderCategorySpinner();
-        } catch(e) { console.error("Error loading data:", e); }
+        const res = await fetch(csvUrl);
+        const txt = await res.text();
+        const rows = txt.split('\n').slice(1);
+        dataList = rows.map(r => {
+            const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, '').trim());
+            return { name: c[0], price: c[1], img: c[2], cat: c[3], catImg: c[4] };
+        }).filter(i => i.cat);
+        renderCategories();
     }
 
-    function renderCategorySpinner() {
+    function renderCategories() {
         const grid = document.getElementById('catGrid');
-        const categories = [...new Set(dataList.map(i => i.cat))];
+        const cats = [...new Set(dataList.map(i => i.cat))];
         grid.innerHTML = '';
 
-        categories.forEach((cat, index) => {
-            const itemData = dataList.find(i => i.cat === cat);
-            const angle = (index / categories.length) * 360;
-            const pos = calculatePosition(angle, 155);
-
-            grid.innerHTML += `
-                <div class="item-circle" 
-                     style="left: ${pos.x}px; top: ${pos.y}px; background-image: url('${itemData.catImg}');" 
-                     onclick="openFoodSpinner('${cat}')">
-                    <span>${cat}</span>
-                </div>`;
+        cats.forEach((cat, i) => {
+            const item = dataList.find(d => d.cat === cat);
+            const pos = getPos(i, cats.length, 160);
+            grid.innerHTML += createNode(pos, item.catImg, cat, '', `onclick="openFoods('${cat}')"`);
         });
     }
 
-    function openFoodSpinner(catName) {
+    function openFoods(catName) {
         document.getElementById('catView').style.display = 'none';
         document.getElementById('foodView').style.display = 'flex';
         document.getElementById('backBtn').style.display = 'block';
         
         const grid = document.getElementById('foodGrid');
-        const filteredFoods = dataList.filter(i => i.cat === catName);
+        const foods = dataList.filter(d => d.cat === catName);
         grid.innerHTML = '';
 
-        filteredFoods.forEach((food, index) => {
-            const angle = (index / filteredFoods.length) * 360;
-            const pos = calculatePosition(angle, 155);
-
-            grid.innerHTML += `
-                <div class="item-circle" 
-                     style="left: ${pos.x}px; top: ${pos.y}px; background-image: url('${food.img}');" 
-                     onmouseover="updateCenter('${food.name}', '${food.price}')"
-                     onclick="updateCenter('${food.name}', '${food.price}')">
-                    <span>${food.name}</span>
-                </div>`;
+        foods.forEach((f, i) => {
+            const pos = getPos(i, foods.length, 160);
+            grid.innerHTML += createNode(pos, f.img, f.name, f.price, `onclick="setMid('${f.name}','${f.price}')"`);
         });
-        
-        // ناوی یەکەم خواردن نیشان بدە لە ناوەڕاست
-        if(filteredFoods.length > 0) updateCenter(filteredFoods[0].name, filteredFoods[0].price);
+        if(foods.length > 0) setMid(foods[0].name, foods[0].price);
     }
 
-    function updateCenter(name, price) {
-        document.getElementById('selectedFoodName').innerText = name;
-        document.getElementById('selectedFoodPrice').innerText = price;
+    function createNode(pos, img, name, price, action) {
+        const uniqueId = 'path-' + Math.random().toString(36).substr(2, 9);
+        return `
+            <div class="item-node" style="left:${pos.x}px; top:${pos.y}px" ${action}>
+                <svg viewBox="0 0 120 120">
+                    <defs>
+                        <path id="${uniqueId}-top" d="M 20,60 A 40,40 0 1,1 100,60" />
+                        <path id="${uniqueId}-bottom" d="M 20,60 A 40,40 0 1,0 100,60" />
+                        <clipPath id="circleView"><circle cx="60" cy="60" r="40" /></clipPath>
+                    </defs>
+                    <image href="${img}" x="20" y="20" width="80" height="80" clip-path="url(#circleView)" preserveAspectRatio="xMidYMid slice" />
+                    <circle cx="60" cy="60" r="41" fill="none" stroke="var(--primary)" stroke-width="2" />
+                    <text class="curved-text">
+                        <textPath href="#${uniqueId}-top" startOffset="50%" text-anchor="middle">${name}</textPath>
+                    </text>
+                    ${price ? `
+                    <text class="price-text">
+                        <textPath href="#${uniqueId}-bottom" startOffset="50%" text-anchor="middle">${price}</textPath>
+                    </text>` : ''}
+                </svg>
+            </div>`;
+    }
+
+    function getPos(i, total, dist) {
+        const angle = (i / total) * 360;
+        return {
+            x: 190 + dist * Math.cos(angle * Math.PI / 180) - 60,
+            y: 190 + dist * Math.sin(angle * Math.PI / 180) - 60
+        };
+    }
+
+    function setMid(n, p) {
+        document.getElementById('midName').innerText = n;
+        document.getElementById('midPrice').innerText = p;
     }
 
     function showCategories() {
         document.getElementById('catView').style.display = 'flex';
         document.getElementById('foodView').style.display = 'none';
         document.getElementById('backBtn').style.display = 'none';
-    }
-
-    function calculatePosition(angle, distance) {
-        const radius = 170; // نێوەندی بازنە گەورەکە
-        const x = radius + distance * Math.cos(angle * Math.PI / 180) - 47;
-        const y = radius + distance * Math.sin(angle * Math.PI / 180) - 47;
-        return { x, y };
     }
 
     loadData();
