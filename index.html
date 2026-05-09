@@ -1,142 +1,94 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Fidget Spinner Edition</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Tech Rest | Spinner Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --bg-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1920&q=80');
-            --overlay: rgba(0, 20, 40, 0.8);
-            --text-color: #00f2ff;
-            --brand-glow: rgba(0, 242, 255, 0.6);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap');
 
-        [data-theme="light"] {
-            --overlay: rgba(255, 255, 255, 0.1);
-            --text-color: #ffffff;
-            --brand-glow: rgba(255, 255, 255, 0.4);
+        :root {
+            --primary: #38bdf8;
+            --accent: #fbbf24;
+            --bg-dark: #020617;
+            --glass-border: rgba(255, 255, 255, 0.15);
         }
 
         body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            color: #fff;
             margin: 0;
-            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- Spinner Section --- */
+        .hero-spinner {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .center-logo {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            background: rgba(2, 6, 23, 0.8);
+            padding: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+            width: 140px;
+            height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(var(--overlay), var(--overlay)), var(--bg-image);
-            background-size: cover;
-            background-position: center;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            transition: background 1s ease-in-out;
+            animation: pulse 2s infinite;
         }
 
-        .theme-switch {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            z-index: 100;
-            cursor: pointer;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            font-size: 1.5rem;
-            transition: 0.5s;
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(56, 189, 248, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
         }
 
-        .welcome-msg {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            color: var(--text-color);
-            text-shadow: 0 0 20px var(--brand-glow);
-            z-index: 10;
-        }
+        .center-logo h2 { margin: 0; font-size: 1.2rem; color: var(--primary); font-weight: 900; }
+        .center-logo span { font-size: 0.8rem; color: var(--accent); }
 
-        /* --- Fidget Spinner Container --- */
-        .spinner-wrapper {
+        .spinner-container {
             position: relative;
-            width: 320px;
-            height: 320px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
-
-        /* Navێ Tech AI - Center of Spinner */
-        .brand-center {
-            color: #ffffff;
-            font-size: 1.6rem;
-            font-weight: 900;
-            z-index: 30;
-            width: 130px;
-            height: 130px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(25px);
-            border: 4px solid rgba(255, 255, 255, 0.2);
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-shadow: 0 0 30px var(--brand-glow);
-            position: absolute;
+            border: 1px dashed var(--glass-border);
+            animation: rotateSpinner 20s linear infinite;
         }
 
-        /* The Rotating Part (Blades) */
-        .fidget-blades {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            animation: fastSpin 8s linear infinite; /* زفرینا سپینەری */
-        }
-
-        @keyframes fastSpin {
+        @keyframes rotateSpinner {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        .blade-arm {
+        .cat-item {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px;
-            height: 140px; /* دووراتیا ئایکۆنان ژ ناڤەندی */
-            background: rgba(255, 255, 255, 0.1);
-            transform-origin: top center;
-        }
-
-        .icon-link {
-            position: absolute;
-            bottom: -30px;
-            left: -32px;
-            width: 65px;
-            height: 65px;
-            background: white;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 50%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            text-decoration: none;
-            font-size: 1.8rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            justify-content: center;
+            cursor: pointer;
             transition: 0.3s;
-            /* دا کو ئایکۆن بخۆ نەزڤریت و بمینیتە ڕاست */
-            animation: counterRotate 8s linear infinite;
+            animation: counterRotate 20s linear infinite;
         }
 
         @keyframes counterRotate {
@@ -144,109 +96,149 @@
             to { transform: rotate(-360deg); }
         }
 
-        /* Position each blade at 120 degrees */
-        .arm-1 { transform: rotate(0deg); }
-        .arm-2 { transform: rotate(120deg); }
-        .arm-3 { transform: rotate(240deg); }
-
-        .tiktok { color: #000; }
-        .instagram { color: #E1306C; }
-        .telegram { color: #0088cc; }
-
-        .wave-bottom {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100px;
-            background: url('https://raw.githubusercontent.com/yusif-adeel/waves/main/wave.png');
-            background-size: 1000px 100px;
-            opacity: 0.3;
-            animation: waveAnim 12s linear infinite;
+        .cat-item:hover {
+            background: var(--primary);
+            border-color: #fff;
+            transform: scale(1.1);
         }
 
-        @keyframes waveAnim { from { background-position-x: 0; } to { background-position-x: 1000px; } }
+        .cat-item i { font-size: 1.5rem; color: var(--accent); margin-bottom: 5px; }
+        .cat-item span { font-size: 0.7rem; font-weight: 700; text-align: center; }
 
-        .bottom-msg {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            padding: 12px 28px;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
-            z-index: 100;
+        /* --- Food List Section --- */
+        #foodSection {
+            padding: 20px;
+            background: #020617;
+            min-height: 100vh;
+            display: none;
         }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .food-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+        }
+
+        .food-photo { width: 100%; height: 120px; object-fit: cover; }
+        .food-info { padding: 10px; text-align: center; }
+        .food-info h3 { font-size: 0.85rem; margin: 0; height: 35px; }
+        .price-tag { color: var(--primary); font-weight: 800; font-size: 0.8rem; }
+
+        .back-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Positioning Items around Circle */
+        .item-1 { top: -40px; left: 110px; }
+        .item-2 { top: 60px; right: -40px; }
+        .item-3 { bottom: -40px; left: 110px; }
+        .item-4 { top: 60px; left: -40px; }
+
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <div class="wave-bottom"></div>
-
-    <div class="theme-switch" onclick="toggleTheme()">
-        <i id="theme-icon" class="fas fa-moon"></i>
+<div id="homePage" class="hero-spinner">
+    <div class="center-logo">
+        <h2>Tech Rest</h2>
+        <span>ب خێرهاتی</span>
     </div>
 
-    <div class="welcome-msg" id="welcome-text">welcome</div>
-
-    <div class="spinner-wrapper">
-        <div class="brand-center">Tech Ai</div>
-
-        <div class="fidget-blades">
-            <div class="blade-arm arm-1">
-                <a href="https://www.tiktok.com/@_tech_ai_" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <div class="blade-arm arm-2">
-                <a href="https://www.instagram.com/falahcanadi" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="blade-arm arm-3">
-                <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
-            </div>
-        </div>
+    <div class="spinner-container" id="catGrid">
+        <!-- ب رێکا JS جۆرێن خارنێ لێرە دکەڤنە د ناڤ بازنەیی دا -->
     </div>
+</div>
 
-    <a href="https://t.me/falahzakho" target="_blank" class="bottom-msg">
-        <i class="fas fa-envelope"></i>
-        <span>Message</span>
-    </a>
+<div id="foodSection">
+    <button class="back-btn" onclick="showHome()">
+        <i class="fas fa-chevron-right"></i> ڤەگەر بۆ سەرەکی
+    </button>
+    <h2 id="catTitle" style="text-align: center; color: var(--accent);"></h2>
+    <div class="food-grid" id="foodGrid"></div>
+</div>
 
-    <audio id="seaSound" loop>
-        <source src="https://www.soundjay.com/nature/ocean-wave-1.mp3" type="audio/mpeg">
-    </audio>
+<script>
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTSRjwZs-DPmh8Cg7LwOa1HTa8m58e4LriIPHbkoxdNp-vcgkNHHsVnp89Dj_TE7xiDLMugKBJRtsBr/pub?output=csv';
+    let dataList = [];
 
-    <script>
-        const welcomeText = document.getElementById('welcome-text');
-        const messages = ["welcome", "بخێر بێی"];
-        let msgIndex = 0;
-        setInterval(() => {
-            msgIndex = (msgIndex + 1) % messages.length;
-            welcomeText.innerText = messages[msgIndex];
-        }, 2000);
+    // ئایکۆنەکان بەپێی ناوی بەشەکان (دەتوانی لێرە بیگۆڕی)
+    const icons = {
+        "برگر": "fa-burger",
+        "پیتزا": "fa-pizza-slice",
+        "سەندویچ": "fa-hotdog",
+        "خوارن": "fa-utensils",
+        "نوشین": "fa-glass-water"
+    };
 
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            const sound = document.getElementById('seaSound');
-            
-            sound.play().catch(() => {});
+    async function loadData() {
+        const res = await fetch(csvUrl);
+        const txt = await res.text();
+        const rows = txt.split('\n').slice(1);
+        dataList = rows.map(r => {
+            const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/"/g, '').trim());
+            return { name: c[0], price: c[1], img: c[2], cat: c[3] };
+        }).filter(i => i.cat);
+        renderSpinner();
+    }
 
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-sun';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                icon.className = 'fas fa-moon';
-            }
-        }
+    function renderSpinner() {
+        const grid = document.getElementById('catGrid');
+        const categories = [...new Set(dataList.map(i => i.cat))];
+        grid.innerHTML = '';
 
-        document.addEventListener('click', () => {
-            document.getElementById('seaSound').play();
-        }, { once: true });
-    </script>
+        categories.forEach((cat, index) => {
+            const iconClass = icons[cat] || "fa-utensils";
+            const angle = (index / categories.length) * 360;
+            // دانانی ئایتمەکان بە شێوەی بازنەیی
+            const x = 150 + 140 * Math.cos(angle * Math.PI / 180) - 40;
+            const y = 150 + 140 * Math.sin(angle * Math.PI / 180) - 40;
+
+            grid.innerHTML += `
+                <div class="cat-item" style="left: ${x}px; top: ${y}px;" onclick="openCat('${cat}')">
+                    <i class="fas ${iconClass}"></i>
+                    <span>${cat}</span>
+                </div>`;
+        });
+    }
+
+    function openCat(catName) {
+        document.getElementById('homePage').style.display = 'none';
+        document.getElementById('foodSection').style.display = 'block';
+        document.getElementById('catTitle').innerText = catName;
+        
+        const grid = document.getElementById('foodGrid');
+        grid.innerHTML = '';
+        dataList.filter(i => i.cat === catName).forEach(item => {
+            grid.innerHTML += `
+                <div class="food-card">
+                    <img src="${item.img}" class="food-photo">
+                    <div class="food-info">
+                        <h3>${item.name}</h3>
+                        <span class="price-tag">${item.price}</span>
+                    </div>
+                </div>`;
+        });
+    }
+
+    function showHome() {
+        document.getElementById('homePage').style.display = 'flex';
+        document.getElementById('foodSection').style.display = 'none';
+    }
+
+    loadData();
+</script>
 </body>
 </html>
