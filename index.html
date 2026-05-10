@@ -13,6 +13,8 @@
             --accent: #fbbf24;
             --card-bg: rgba(255, 255, 255, 0.03); 
             --glass-border: rgba(255, 255, 255, 0.1);
+            --tiktok: #ff0050;
+            --insta: #e1306c;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease; }
@@ -23,7 +25,7 @@
             padding-bottom: 50px;
             min-height: 100vh;
             color: #fff;
-            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.7)), 
+            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)), 
                         url('https://i.postimg.cc/qRzMnWFV/photo-2026-05-09-18-07-24.jpg');
             background-size: cover;
             background-position: center;
@@ -70,12 +72,38 @@
         }
 
         header {
-            padding: 70px 20px 30px;
+            padding: 80px 20px 20px;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(2,6,23,0.8), transparent);
+            background: linear-gradient(to bottom, rgba(2,6,23,0.9), transparent);
         }
 
-        header h1 { font-size: 2.2rem; color: var(--primary); text-transform: uppercase; margin: 0; }
+        header h1 { font-size: 2.5rem; color: var(--primary); text-transform: uppercase; margin: 0; font-weight: 900; letter-spacing: 2px; }
+
+        /* Social Icons Style */
+        .social-header {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-header a {
+            color: #fff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            transition: 0.4s;
+        }
+
+        .social-header a.tt:hover { color: var(--tiktok); border-color: var(--tiktok); transform: translateY(-3px); }
+        .social-header a.ig:hover { color: var(--insta); border-color: var(--insta); transform: translateY(-3px); }
 
         .food-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; }
 
@@ -174,6 +202,14 @@
 
 <header>
     <h1>TECH REST</h1>
+    <div class="social-header">
+        <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-96F7xvMB0zP" target="_blank" class="tt">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="ig">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
 </header>
 
 <div id="lang-modal" onclick="toggleLang()">
@@ -241,8 +277,8 @@
         document.getElementById('btn-clear').innerText = translations[lang].clear;
         document.getElementById('lang-title').innerText = translations[lang].langTitle;
         
-        renderMenu(); // ڤێرێ ناڤێن خوارنێ ل سەر شاشێ دهێنە گوهۆڕین
-        updateCartUI(); // ڤێرێ ناڤێن خوارنێ د ناڤ سەلکێ دا دهێنە گوهۆڕین
+        renderMenu(); 
+        updateCartUI(); 
         toggleLang(false);
     }
 
@@ -309,7 +345,6 @@
         
         let total = 0;
         cart.forEach((item, index) => {
-            // ئەڤە پشکا گرنگە کو ناڤێ د ناڤ سەلکێ دا دگەل زمانێ هەلبژارتی بگوهۆڕیت
             const displayName = item[`name_${currentLang}`];
             const itemDiv = document.createElement('div');
             itemDiv.className = 'cart-item';
